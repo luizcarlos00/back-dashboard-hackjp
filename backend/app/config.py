@@ -1,0 +1,32 @@
+import os
+from dotenv import load_dotenv
+from supabase import create_client, Client
+
+# Load environment variables
+load_dotenv()
+
+# Supabase Configuration
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+
+if not SUPABASE_URL or not SUPABASE_KEY:
+    raise ValueError("SUPABASE_URL and SUPABASE_KEY must be set in environment variables")
+
+# Initialize Supabase client
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+# OpenAI Configuration
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+if not OPENAI_API_KEY:
+    raise ValueError("OPENAI_API_KEY must be set in environment variables")
+
+# n8n Configuration
+N8N_WEBHOOK_URL = os.getenv("N8N_WEBHOOK_URL")
+
+if not N8N_WEBHOOK_URL:
+    raise ValueError("N8N_WEBHOOK_URL must be set in environment variables")
+
+# Server Configuration
+PORT = int(os.getenv("PORT", 8000))
+
