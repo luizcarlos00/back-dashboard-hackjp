@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import users, videos, progress, questions, answers, dashboard
+from app.routers import users, videos, progress, questions, answers, dashboard, contents
 import logging
 
 # Configure logging
@@ -58,6 +58,12 @@ app.include_router(
     users.router,
     prefix="/api/v1/user",
     tags=["Users"]
+)
+
+app.include_router(
+    contents.router,
+    prefix="/api/v1/contents",
+    tags=["Contents"]
 )
 
 app.include_router(
