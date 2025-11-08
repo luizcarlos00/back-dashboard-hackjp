@@ -1,68 +1,50 @@
-from fastapi import APIRouter, HTTPException
-from app.config import supabase
+from fastapi import APIRouter, HTTPException, Depends
+from sqlalchemy.orm import Session
+from app.database import get_db
+from app.db_models import User, Video, UserProgress
 from app.models import ProgressRequest, ProgressResponse
 from datetime import datetime
+import uuid
 
 router = APIRouter()
 
 @router.post("", response_model=ProgressResponse)
-async def record_progress(data: ProgressRequest):
-    """
-    Record that user watched a video.
-    Increments video view count and returns watch statistics.
-    """
+async def record_progress(data: ProgressRequest, db: Session = Depends(get_db)):
+    """Record that user watched a video."""
     try:
         # Get user
-        user = supabase.table("users") \
-            .select("*") \
-            .eq("device_id", data.device_id) \
-            .execute()
+        user = db.query(User).filter(User.device_id == data.device_id).first()
         
-        if not user.data or len(user.data) == 0:
+        if not user:
             raise HTTPException(status_code=404, detail="User not found. Please create user first via POST /user")
         
-        user_id = user.data[0]['id']
-        videos_until_e2e = user.data[0].get('videos_until_e2e', 3)
+        videos_until_e2e = user.videos_until_e2e
         
         # Check if video exists
-        video = supabase.table("videos") \
-            .select("view_count") \
-            .eq("id", data.video_id) \
-            .execute()
+        video = db.query(Video).filter(Video.id == uuid.UUID(data.video_id)).first()
         
-        if not video.data or len(video.data) == 0:
+        if not video:
             raise HTTPException(status_code=404, detail="Video not found")
         
         # Save progress
-        supabase.table("user_progress") \
-            .insert({
-                "user_id": user_id,
-                "video_id": data.video_id,
-                "completed": data.completed,
-                "watched_at": datetime.now().isoformat()
-            }) \
-            .execute()
+        progress = UserProgress(
+            user_id=user.id,
+            video_id=video.id,
+            completed=data.completed,
+            watched_at=datetime.now()
+        )
+        db.add(progress)
         
         # Increment video view count
-        current_view_count = video.data[0]['view_count']
-        supabase.table("videos") \
-            .update({"view_count": current_view_count + 1}) \
-            .eq("id", data.video_id) \
-            .execute()
+        video.view_count += 1
         
         # Update user last active
-        supabase.table("users") \
-            .update({"last_active_at": datetime.now().isoformat()}) \
-            .eq("id", user_id) \
-            .execute()
+        user.last_active_at = datetime.now()
+        
+        db.commit()
         
         # Count total videos watched by user
-        watched = supabase.table("user_progress") \
-            .select("id", count="exact") \
-            .eq("user_id", user_id) \
-            .execute()
-        
-        watched_count = watched.count or 0
+        watched_count = db.query(UserProgress).filter(UserProgress.user_id == user.id).count()
         
         # Determine if should trigger E2E
         should_trigger_e2e = watched_count % videos_until_e2e == 0
@@ -72,9 +54,8 @@ async def record_progress(data: ProgressRequest):
             watched_count=watched_count,
             should_trigger_e2e=should_trigger_e2e
         )
-    
     except HTTPException:
         raise
     except Exception as e:
+        db.rollback()
         raise HTTPException(status_code=500, detail=f"Error recording progress: {str(e)}")
-

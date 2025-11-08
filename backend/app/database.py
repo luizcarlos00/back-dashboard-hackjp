@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Supabase PostgreSQL connection
+# Format: postgresql://postgres:[password]@[host]:[port]/postgres
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 if not DATABASE_URL:
@@ -17,6 +18,7 @@ if not DATABASE_URL:
     
     if SUPABASE_URL and SUPABASE_DB_PASSWORD:
         # Extract host from Supabase URL
+        # e.g., https://xxxxx.supabase.co -> db.xxxxx.supabase.co
         host = SUPABASE_URL.replace("https://", "").replace("http://", "")
         db_host = f"db.{host}"
         DATABASE_URL = f"postgresql://postgres:{SUPABASE_DB_PASSWORD}@{db_host}:5432/postgres"
@@ -29,8 +31,8 @@ if not DATABASE_URL:
 # Create SQLAlchemy engine
 engine = create_engine(
     DATABASE_URL,
-    poolclass=NullPool,
-    echo=False,
+    poolclass=NullPool,  # Disable connection pooling for serverless
+    echo=False,  # Set to True for SQL query logging
 )
 
 # Create SessionLocal class
