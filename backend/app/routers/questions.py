@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.db_models import User, Video, Question, E2EPrompt
 from app.models import QuestionResponse
-from app.services.n8n_client import n8n_client
 from datetime import datetime
 import logging
 import uuid
@@ -31,31 +30,14 @@ async def get_question(
         if not video:
             raise HTTPException(status_code=404, detail="Video not found")
         
-        # Call n8n to generate personalized question
-        question_text = await n8n_client.generate_question(
-            user_nome=user.nome,
-            user_idade=user.idade,
-            user_interesses=user.interesses or [],
-            user_nivel_educacional=user.nivel_educacional,
-            video_title=video.title,
-            video_description=video.description or '',
-            expected_concepts=video.expected_concepts or []
-        )
-        
-        # Use fallback if n8n fails
-        if not question_text:
-            logger.warning(f"n8n failed, using fallback question for user {device_id}")
-            question_text = n8n_client.get_fallback_question()
-            generated_by = "manual"
-        else:
-            generated_by = "n8n"
+        # Generate a generic question based on video
+        question_text = f"Baseado no vídeo '{video.title}', explique o que você aprendeu e como pode aplicar esse conhecimento."
         
         # Save question to database
         question = Question(
             user_id=user.id,
             video_id=video.id,
             question_text=question_text,
-            generated_by=generated_by,
             created_at=datetime.now()
         )
         
@@ -68,7 +50,6 @@ async def get_question(
             user_id=str(question.user_id),
             video_id=str(question.video_id),
             question_text=question.question_text,
-            generated_by=question.generated_by,
             created_at=question.created_at
         )
     except HTTPException:

@@ -60,13 +60,11 @@ CREATE TABLE questions (
     user_id UUID REFERENCES users(id) ON DELETE CASCADE,
     video_id UUID REFERENCES videos(id) ON DELETE CASCADE,
     question_text TEXT NOT NULL,
-    generated_by VARCHAR(20) DEFAULT 'n8n' CHECK (generated_by IN ('n8n', 'manual')),
     created_at TIMESTAMP DEFAULT NOW()
 );
 
 CREATE INDEX idx_questions_user ON questions(user_id);
 CREATE INDEX idx_questions_video ON questions(video_id);
-CREATE INDEX idx_questions_generated_by ON questions(generated_by);
 
 -- 5. Answers Table
 CREATE TABLE answers (

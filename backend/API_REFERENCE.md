@@ -2,8 +2,7 @@
 
 Quick reference for all API endpoints with request/response examples.
 
-**Base URL (Local):** `http://localhost:8000`  
-**Base URL (Production):** `https://your-app.railway.app`
+**Base URL (Local):** `http://localhost:8000`
 
 All API endpoints are prefixed with `/api/v1`
 
@@ -191,7 +190,6 @@ Generate personalized E2E question for user.
   "user_id": "user-uuid",
   "video_id": "video-uuid",
   "question_text": "Explique com suas próprias palavras como funciona a fotossíntese e qual sua importância para a vida na Terra.",
-  "generated_by": "n8n",
   "created_at": "2025-11-08T10:05:00"
 }
 ```

@@ -85,8 +85,8 @@ def test_record_progress(video_id: str):
     return response.status_code == 200
 
 def test_get_question(video_id: str):
-    """Test get question (requires n8n)"""
-    print("❓ Testing Get Question (requires n8n)...")
+    """Test get question"""
+    print("❓ Testing Get Question...")
     response = requests.get(
         f"{API_BASE}/questions",
         params={"device_id": DEVICE_ID, "video_id": video_id}
@@ -142,7 +142,7 @@ def run_all_tests():
         results.append(("Next Video", True))
         results.append(("Record Progress", test_record_progress(video_id)))
         
-        # E2E flow (may fail if n8n not configured)
+        # E2E flow
         try:
             question_id = test_get_question(video_id)
             if question_id:
@@ -150,10 +150,10 @@ def run_all_tests():
                 results.append(("Submit Answer", test_submit_answer(question_id, video_id)))
             else:
                 results.append(("Get Question", False))
-                print("⚠️  Note: Question generation may require n8n webhook")
+                print("⚠️  Note: Question generation failed")
         except Exception as e:
             results.append(("E2E Flow", False))
-            print(f"⚠️  E2E test failed (likely n8n not configured): {e}")
+            print(f"⚠️  E2E test failed: {e}")
     else:
         results.append(("Next Video", False))
         print("⚠️  No videos available. Please add videos to database first.")

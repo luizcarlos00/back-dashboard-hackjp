@@ -58,7 +58,6 @@ class QuestionResponse(BaseModel):
     user_id: str
     video_id: str
     question_text: str
-    generated_by: str
     created_at: datetime
 
 # Answer Models

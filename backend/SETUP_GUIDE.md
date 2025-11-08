@@ -7,7 +7,6 @@ Quick start guide for setting up and running the FeedBreak backend.
 - [ ] Python 3.11+ installed
 - [ ] Supabase account created
 - [ ] OpenAI API key obtained
-- [ ] n8n instance running (or using cloud n8n)
 
 ## Step-by-Step Setup
 
@@ -46,42 +45,7 @@ Quick start guide for setting up and running the FeedBreak backend.
 4. Copy the key (starts with `sk-`)
 5. **Important**: This key will only be shown once!
 
-### 3. n8n Webhook Setup
-
-#### Option A: Using n8n Cloud
-1. Create n8n account at https://n8n.io
-2. Create new workflow
-3. Add Webhook node (trigger)
-4. Add OpenAI node
-5. Configure OpenAI node:
-   ```
-   Prompt: Generate a personalized E2E question for a student based on:
-   - Student name: {{$json["user"]["nome"]}}
-   - Age: {{$json["user"]["idade"]}}
-   - Interests: {{$json["user"]["interesses"]}}
-   - Education level: {{$json["user"]["nivel_educacional"]}}
-   - Video: {{$json["video"]["title"]}}
-   - Expected concepts: {{$json["video"]["expected_concepts"]}}
-   
-   Generate a thought-provoking question that asks the student to explain
-   the concept in their own words, considering their age and interests.
-   ```
-6. Add Function node to format response:
-   ```javascript
-   return {
-     question: $input.first().json.choices[0].message.content
-   };
-   ```
-7. Activate workflow
-8. Copy webhook URL
-
-#### Option B: Self-hosted n8n
-1. Install n8n: `npm install -g n8n`
-2. Run: `n8n start`
-3. Access at http://localhost:5678
-4. Follow same steps as Option A
-
-### 4. Backend Environment Setup
+### 3. Backend Environment Setup
 
 1. Navigate to backend directory:
    ```bash
@@ -109,11 +73,10 @@ Quick start guide for setting up and running the FeedBreak backend.
    SUPABASE_URL=https://xxxxxxxxxxxxx.supabase.co
    SUPABASE_KEY=eyJhbGc...your-key-here
    OPENAI_API_KEY=sk-...your-key-here
-   N8N_WEBHOOK_URL=https://your-n8n-instance.com/webhook/xxxxx
    PORT=8000
    ```
 
-### 5. Run Locally
+### 4. Run Locally
 
 ```bash
 # Make sure virtual environment is activated
@@ -126,7 +89,7 @@ python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 python app/main.py
 ```
 
-### 6. Test the API
+### 5. Test the API
 
 #### Check Health
 ```bash
@@ -170,62 +133,10 @@ VALUES (
 curl "http://localhost:8000/api/v1/videos/next?device_id=test-123"
 ```
 
-### 7. Deploy to Railway
-
-#### Using Railway CLI
-
-```bash
-# Install Railway CLI
-npm install -g railway
-
-# Login
-railway login
-
-# Initialize project (in backend directory)
-railway init
-
-# Link to project (if already created)
-railway link
-
-# Add environment variables
-railway variables set SUPABASE_URL="https://..."
-railway variables set SUPABASE_KEY="eyJ..."
-railway variables set OPENAI_API_KEY="sk-..."
-railway variables set N8N_WEBHOOK_URL="https://..."
-
-# Deploy
-railway up
-```
-
-#### Using Railway Dashboard
-
-1. Go to https://railway.app
-2. Create new project
-3. Deploy from GitHub repo
-4. Add environment variables in Settings
-5. Railway will auto-detect Procfile and deploy
-
-### 8. Post-Deployment
-
-1. Test deployed API:
-   ```bash
-   curl https://your-app.railway.app/health
-   ```
-
-2. Update Android app with production URL
-
-3. Monitor logs in Railway dashboard
-
 ## Common Issues
 
 ### Issue: "SUPABASE_URL must be set"
 **Solution**: Check `.env` file exists and has correct values
-
-### Issue: n8n webhook times out
-**Solution**: 
-- Verify n8n workflow is activated
-- Test webhook URL directly with curl
-- Check n8n has OpenAI API key configured
 
 ### Issue: "Storage bucket not found"
 **Solution**: 
@@ -249,16 +160,13 @@ pip install -r requirements.txt --force-reinstall
 
 1. ✅ Add sample videos to database
 2. ✅ Test E2E flow end-to-end
-3. ✅ Configure n8n for production
-4. ✅ Set up monitoring/logging
-5. ✅ Deploy to Railway
-6. ✅ Connect Android app
+3. ✅ Set up monitoring/logging
+4. ✅ Connect Android app
 
 ## Support
 
 - API Docs: http://localhost:8000/docs
 - Supabase Docs: https://supabase.com/docs
-- n8n Docs: https://docs.n8n.io
 - LangChain Docs: https://python.langchain.com/docs
 
 ---

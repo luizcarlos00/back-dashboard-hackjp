@@ -63,12 +63,6 @@ All planned features have been implemented and are ready for testing and deploym
 
 ### 4. Services & Integration
 
-**n8n Integration:**
-- ✅ Async webhook client
-- ✅ Personalized question generation
-- ✅ Graceful fallback handling
-- ✅ User profile context passing
-
 **LangChain + GPT-4o-mini:**
 - ✅ Intelligent answer analysis
 - ✅ Concept identification
@@ -98,7 +92,6 @@ All planned features have been implemented and are ready for testing and deploym
 
 ### 7. Deployment Configuration
 
-- ✅ **Procfile** - Railway deployment
 - ✅ **requirements.txt** - Python dependencies
 - ✅ **.gitignore** - Git exclusions
 - ✅ **.env.example** - Environment template
@@ -126,8 +119,7 @@ backend/
 │   │
 │   ├── services/
 │   │   ├── __init__.py
-│   │   ├── langchain_analyzer.py  # AI analysis service
-│   │   └── n8n_client.py          # n8n webhook client
+│   │   └── langchain_analyzer.py  # AI analysis service
 │   │
 │   └── database/
 │       ├── __init__.py
@@ -135,7 +127,6 @@ backend/
 │
 ├── requirements.txt                # Dependencies
 ├── .gitignore                      # Git exclusions
-├── Procfile                        # Railway config
 ├── test_api.py                     # Test script
 ├── add_sample_videos.sql           # Sample data
 │
@@ -183,8 +174,6 @@ backend/
 | **Database** | PostgreSQL (via Supabase) |
 | **Storage** | Supabase Storage |
 | **AI/ML** | LangChain + OpenAI GPT-4o-mini |
-| **Automation** | n8n webhooks |
-| **Deployment** | Railway |
 | **API Docs** | Swagger UI / ReDoc (auto-generated) |
 
 ---
@@ -203,17 +192,11 @@ Before deployment, you need:
    - Create API key
    - Ensure you have credits
 
-3. **n8n:**
-   - Setup workflow for question generation
-   - Configure OpenAI integration
-   - Get webhook URL
-
-4. **Environment Variables:**
+3. **Environment Variables:**
    ```bash
    SUPABASE_URL=https://xxx.supabase.co
    SUPABASE_KEY=eyJ...
    OPENAI_API_KEY=sk-...
-   N8N_WEBHOOK_URL=https://...
    PORT=8000
    ```
 
@@ -226,7 +209,7 @@ Before deployment, you need:
 - [ ] Add sample videos to database
 - [ ] Get next video
 - [ ] Record progress
-- [ ] Generate question (requires n8n)
+- [ ] Generate question
 - [ ] Submit text answer (requires OpenAI)
 - [ ] Upload audio answer
 - [ ] View dashboard stats
@@ -241,12 +224,7 @@ Before deployment, you need:
 
 1. **User watches 3 videos** (configurable per user)
 2. **System triggers E2E question**
-3. **n8n generates personalized question** based on:
-   - User age
-   - User interests
-   - Education level
-   - Video content
-   - Expected concepts
+3. **System generates question** based on video content
 4. **User answers** (text or audio)
 5. **AI analyzes answer** (for text):
    - Identifies concepts mentioned
@@ -263,30 +241,6 @@ Before deployment, you need:
 - **0.9-1.0:** Excellent understanding
 
 **Pass threshold:** ≥ 0.6
-
----
-
-## 🚢 Deployment
-
-### Railway (Recommended)
-
-```bash
-# Install CLI
-npm install -g railway
-
-# Deploy
-railway login
-railway init
-railway variables set SUPABASE_URL=...
-railway variables set SUPABASE_KEY=...
-railway variables set OPENAI_API_KEY=...
-railway variables set N8N_WEBHOOK_URL=...
-railway up
-```
-
-### Alternative: Render, Heroku, Google Cloud Run
-
-All compatible via Procfile or containerization.
 
 ---
 
@@ -337,12 +291,10 @@ Potential improvements:
 The backend is **complete and functional**. Next steps:
 
 1. ✅ Configure Supabase
-2. ✅ Set up n8n workflow
-3. ✅ Add environment variables
-4. ✅ Run locally and test
-5. ✅ Deploy to Railway
-6. ✅ Connect Android app
-7. ✅ Demo time! 🚀
+2. ✅ Add environment variables
+3. ✅ Run locally and test
+4. ✅ Connect Android app
+5. ✅ Demo time! 🚀
 
 ---
 
@@ -351,8 +303,6 @@ The backend is **complete and functional**. Next steps:
 - **API Docs:** http://localhost:8000/docs
 - **Health Check:** http://localhost:8000/health
 - **Supabase Dashboard:** https://supabase.com/dashboard
-- **Railway Dashboard:** https://railway.app/dashboard
-- **n8n Workflows:** https://app.n8n.io (or your instance)
 
 ---
 

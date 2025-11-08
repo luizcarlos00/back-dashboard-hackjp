@@ -28,12 +28,6 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     raise ValueError("OPENAI_API_KEY must be set in environment variables")
 
-# n8n Configuration
-N8N_WEBHOOK_URL = os.getenv("N8N_WEBHOOK_URL")
-
-if not N8N_WEBHOOK_URL:
-    raise ValueError("N8N_WEBHOOK_URL must be set in environment variables")
-
 # Server Configuration
 PORT = int(os.getenv("PORT", 8000))
 

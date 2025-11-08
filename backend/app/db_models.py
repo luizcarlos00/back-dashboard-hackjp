@@ -68,12 +68,7 @@ class Question(Base):
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     video_id = Column(UUID(as_uuid=True), ForeignKey("videos.id", ondelete="CASCADE"), nullable=False, index=True)
     question_text = Column(Text, nullable=False)
-    generated_by = Column(String(20), default='n8n', index=True)
     created_at = Column(TIMESTAMP, server_default=func.now())
-    
-    __table_args__ = (
-        CheckConstraint("generated_by IN ('n8n', 'manual')", name='check_generated_by'),
-    )
     
     # Relationships
     user = relationship("User", back_populates="questions")
