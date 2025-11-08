@@ -1,8 +1,12 @@
-from fastapi import APIRouter, HTTPException, Query
-from app.config import supabase
+from fastapi import APIRouter, HTTPException, Query, Depends
+from sqlalchemy.orm import Session
+from sqlalchemy import and_
+from app.database import get_db
+from app.db_models import Video, User, UserProgress
 from app.models import VideoResponse, NextVideoResponse
-from typing import List, Optional
+from typing import Optional
 from datetime import datetime
+import uuid
 
 router = APIRouter()
 
@@ -10,35 +14,38 @@ router = APIRouter()
 async def list_videos(
     category: Optional[str] = None,
     limit: int = Query(20, ge=1, le=100),
-    offset: int = Query(0, ge=0)
+    offset: int = Query(0, ge=0),
+    db: Session = Depends(get_db)
 ):
-    """
-    List available videos with optional filtering.
-    """
+    """List available videos with optional filtering."""
     try:
-        # Build query
-        query = supabase.table("videos") \
-            .select("*", count="exact") \
-            .eq("is_active", True)
+        query = db.query(Video).filter(Video.is_active == True)
         
         if category:
-            query = query.eq("category", category)
+            query = query.filter(Video.category == category)
         
-        # Execute with pagination
-        result = query \
-            .order("created_at", desc=True) \
-            .range(offset, offset + limit - 1) \
-            .execute()
+        total = query.count()
+        videos = query.order_by(Video.created_at.desc()).limit(limit).offset(offset).all()
         
-        videos = [VideoResponse(**video) for video in result.data]
+        videos_response = [
+            VideoResponse(
+                id=str(v.id),
+                title=v.title,
+                description=v.description,
+                url=v.url,
+                thumbnail_url=v.thumbnail_url,
+                duration_seconds=v.duration_seconds,
+                category=v.category,
+                difficulty=v.difficulty,
+                keywords=v.keywords or [],
+                expected_concepts=v.expected_concepts or [],
+                view_count=v.view_count,
+                created_at=v.created_at
+            )
+            for v in videos
+        ]
         
-        return {
-            "videos": videos,
-            "total": result.count or 0,
-            "limit": limit,
-            "offset": offset
-        }
-    
+        return {"videos": videos_response, "total": total, "limit": limit, "offset": offset}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching videos: {str(e)}")
 
@@ -46,108 +53,107 @@ async def list_videos(
 async def list_content(
     category: Optional[str] = None,
     limit: int = Query(20, ge=1, le=100),
-    offset: int = Query(0, ge=0)
+    offset: int = Query(0, ge=0),
+    db: Session = Depends(get_db)
 ):
-    """
-    Alias for /videos endpoint - list available content.
-    """
-    return await list_videos(category=category, limit=limit, offset=offset)
+    """Alias for /videos endpoint."""
+    return await list_videos(category=category, limit=limit, offset=offset, db=db)
 
 @router.get("/next", response_model=NextVideoResponse)
-async def get_next_video(device_id: str = Query(..., description="User device ID")):
-    """
-    Get next video for user to watch.
-    Prioritizes unwatched videos, falls back to random if all watched.
-    Returns E2E trigger flag based on user's watch count.
-    """
+async def get_next_video(
+    device_id: str = Query(..., description="User device ID"),
+    db: Session = Depends(get_db)
+):
+    """Get next video for user to watch."""
     try:
         # Get or create user
-        user = supabase.table("users") \
-            .select("*") \
-            .eq("device_id", device_id) \
-            .execute()
+        user = db.query(User).filter(User.device_id == device_id).first()
         
-        if not user.data or len(user.data) == 0:
-            # Create minimal user if doesn't exist
-            user = supabase.table("users") \
-                .insert({
-                    "device_id": device_id,
-                    "nome": "User",
-                    "idade": 0,
-                    "nivel_educacional": "unknown",
-                    "last_active_at": datetime.now().isoformat()
-                }) \
-                .execute()
+        if not user:
+            user = User(
+                device_id=device_id,
+                nome="User",
+                idade=0,
+                nivel_educacional="unknown",
+                last_active_at=datetime.now()
+            )
+            db.add(user)
+            db.commit()
+            db.refresh(user)
         
-        user_id = user.data[0]['id']
-        videos_until_e2e = user.data[0].get('videos_until_e2e', 3)
+        videos_until_e2e = user.videos_until_e2e
         
         # Get watched video IDs
-        watched = supabase.table("user_progress") \
-            .select("video_id") \
-            .eq("user_id", user_id) \
-            .execute()
-        
-        watched_ids = [w['video_id'] for w in watched.data]
+        watched_ids = [str(p.video_id) for p in db.query(UserProgress).filter(UserProgress.user_id == user.id).all()]
         watched_count = len(watched_ids)
         
         # Find unwatched video
-        query = supabase.table("videos") \
-            .select("*") \
-            .eq("is_active", True)
+        query = db.query(Video).filter(Video.is_active == True)
         
         if watched_ids:
-            # Get videos not in watched list
-            all_videos = query.execute()
-            unwatched_videos = [v for v in all_videos.data if v['id'] not in watched_ids]
-            
-            if unwatched_videos:
-                video_data = unwatched_videos[0]
-            else:
-                # All watched, get random video
-                video_data = all_videos.data[0] if all_videos.data else None
-        else:
-            # No videos watched yet, get first available
-            result = query.limit(1).execute()
-            video_data = result.data[0] if result.data else None
+            watched_uuids = [uuid.UUID(vid) for vid in watched_ids]
+            query = query.filter(~Video.id.in_(watched_uuids))
         
-        if not video_data:
+        video = query.first()
+        
+        if not video:
+            # All watched, get any active video
+            video = db.query(Video).filter(Video.is_active == True).first()
+        
+        if not video:
             raise HTTPException(status_code=404, detail="No videos available")
         
-        video = VideoResponse(**video_data)
+        video_response = VideoResponse(
+            id=str(video.id),
+            title=video.title,
+            description=video.description,
+            url=video.url,
+            thumbnail_url=video.thumbnail_url,
+            duration_seconds=video.duration_seconds,
+            category=video.category,
+            difficulty=video.difficulty,
+            keywords=video.keywords or [],
+            expected_concepts=video.expected_concepts or [],
+            view_count=video.view_count,
+            created_at=video.created_at
+        )
         
-        # Determine if should trigger E2E
         should_trigger_e2e = (watched_count + 1) % videos_until_e2e == 0
         
         return NextVideoResponse(
-            video=video,
+            video=video_response,
             watched_count=watched_count,
             should_trigger_e2e=should_trigger_e2e
         )
-    
     except HTTPException:
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error getting next video: {str(e)}")
 
 @router.get("/{video_id}", response_model=VideoResponse)
-async def get_video(video_id: str):
-    """
-    Get specific video by ID.
-    """
+async def get_video(video_id: str, db: Session = Depends(get_db)):
+    """Get specific video by ID."""
     try:
-        video = supabase.table("videos") \
-            .select("*") \
-            .eq("id", video_id) \
-            .execute()
+        video = db.query(Video).filter(Video.id == uuid.UUID(video_id)).first()
         
-        if not video.data or len(video.data) == 0:
+        if not video:
             raise HTTPException(status_code=404, detail="Video not found")
         
-        return VideoResponse(**video.data[0])
-    
+        return VideoResponse(
+            id=str(video.id),
+            title=video.title,
+            description=video.description,
+            url=video.url,
+            thumbnail_url=video.thumbnail_url,
+            duration_seconds=video.duration_seconds,
+            category=video.category,
+            difficulty=video.difficulty,
+            keywords=video.keywords or [],
+            expected_concepts=video.expected_concepts or [],
+            view_count=video.view_count,
+            created_at=video.created_at
+        )
     except HTTPException:
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching video: {str(e)}")
-

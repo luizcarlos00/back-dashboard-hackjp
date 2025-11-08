@@ -1,87 +1,71 @@
-from fastapi import APIRouter, HTTPException, UploadFile, File, Form
-from app.config import supabase
+from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Depends
+from sqlalchemy.orm import Session
+from app.database import get_db
+from app.config import supabase_storage
+from app.db_models import User, Video, Question, Answer
 from app.models import AnswerTextRequest, AnswerResponse
 from app.services.langchain_analyzer import analyzer
 from datetime import datetime
-import uuid
+import uuid as uuid_lib
 import logging
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
 @router.post("", response_model=AnswerResponse)
-async def submit_text_answer(data: AnswerTextRequest):
-    """
-    Submit text answer to E2E question.
-    Analyzes response with LangChain and saves to database.
-    """
+async def submit_text_answer(data: AnswerTextRequest, db: Session = Depends(get_db)):
+    """Submit text answer to E2E question with LangChain analysis."""
     try:
         # Get user
-        user = supabase.table("users") \
-            .select("*") \
-            .eq("device_id", data.device_id) \
-            .execute()
+        user = db.query(User).filter(User.device_id == data.device_id).first()
         
-        if not user.data or len(user.data) == 0:
+        if not user:
             raise HTTPException(status_code=404, detail="User not found")
         
-        user_id = user.data[0]['id']
-        
         # Get question
-        question = supabase.table("questions") \
-            .select("*") \
-            .eq("id", data.question_id) \
-            .execute()
+        question = db.query(Question).filter(Question.id == uuid_lib.UUID(data.question_id)).first()
         
-        if not question.data or len(question.data) == 0:
+        if not question:
             raise HTTPException(status_code=404, detail="Question not found")
         
-        question_data = question.data[0]
-        
         # Get video for context
-        video = supabase.table("videos") \
-            .select("*") \
-            .eq("id", data.video_id) \
-            .execute()
+        video = db.query(Video).filter(Video.id == uuid_lib.UUID(data.video_id)).first()
         
-        if not video.data or len(video.data) == 0:
+        if not video:
             raise HTTPException(status_code=404, detail="Video not found")
-        
-        video_data = video.data[0]
         
         # Analyze response with LangChain
         logger.info(f"Analyzing text response for user {data.device_id}")
         analysis = await analyzer.analyze_response(
             user_response=data.text_response,
-            video_title=video_data['title'],
-            video_description=video_data.get('description', ''),
-            expected_concepts=video_data.get('expected_concepts', []),
-            question_text=question_data['question_text']
+            video_title=video.title,
+            video_description=video.description or '',
+            expected_concepts=video.expected_concepts or [],
+            question_text=question.question_text
         )
         
         # Save answer to database
-        answer = supabase.table("answers") \
-            .insert({
-                "user_id": user_id,
-                "question_id": data.question_id,
-                "video_id": data.video_id,
-                "response_type": "text",
-                "text_response": data.text_response,
-                "ai_evaluation": analysis.feedback,
-                "concepts_identified": analysis.concepts_identified,
-                "quality_score": analysis.quality_score,
-                "passed": analysis.passed,
-                "created_at": datetime.now().isoformat()
-            }) \
-            .execute()
+        answer = Answer(
+            user_id=user.id,
+            question_id=question.id,
+            video_id=video.id,
+            response_type="text",
+            text_response=data.text_response,
+            ai_evaluation=analysis.feedback,
+            concepts_identified=analysis.concepts_identified,
+            quality_score=analysis.quality_score,
+            passed=analysis.passed,
+            created_at=datetime.now()
+        )
         
-        if not answer.data or len(answer.data) == 0:
-            raise HTTPException(status_code=500, detail="Failed to save answer")
+        db.add(answer)
+        db.commit()
+        db.refresh(answer)
         
         logger.info(f"Text answer saved with score: {analysis.quality_score}")
         
         return AnswerResponse(
-            id=answer.data[0]['id'],
+            id=str(answer.id),
             status="analyzed",
             quality_score=round(analysis.quality_score, 2),
             passed=analysis.passed,
@@ -90,11 +74,11 @@ async def submit_text_answer(data: AnswerTextRequest):
             missing_concepts=analysis.missing_concepts,
             audio_url=None
         )
-    
     except HTTPException:
         raise
     except Exception as e:
         logger.error(f"Error submitting text answer: {str(e)}")
+        db.rollback()
         raise HTTPException(status_code=500, detail=f"Error submitting answer: {str(e)}")
 
 @router.post("/audio", response_model=AnswerResponse)
@@ -102,41 +86,27 @@ async def submit_audio_answer(
     device_id: str = Form(...),
     question_id: str = Form(...),
     video_id: str = Form(...),
-    file: UploadFile = File(...)
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db)
 ):
-    """
-    Submit audio answer to E2E question.
-    Uploads audio to Supabase Storage and saves metadata.
-    Note: Transcription and analysis are optional/future features.
-    """
+    """Submit audio answer to E2E question. Uploads to Supabase Storage."""
     try:
         # Get user
-        user = supabase.table("users") \
-            .select("*") \
-            .eq("device_id", device_id) \
-            .execute()
+        user = db.query(User).filter(User.device_id == device_id).first()
         
-        if not user.data or len(user.data) == 0:
+        if not user:
             raise HTTPException(status_code=404, detail="User not found")
         
-        user_id = user.data[0]['id']
-        
         # Validate question exists
-        question = supabase.table("questions") \
-            .select("id") \
-            .eq("id", question_id) \
-            .execute()
+        question = db.query(Question).filter(Question.id == uuid_lib.UUID(question_id)).first()
         
-        if not question.data or len(question.data) == 0:
+        if not question:
             raise HTTPException(status_code=404, detail="Question not found")
         
         # Validate video exists
-        video = supabase.table("videos") \
-            .select("id") \
-            .eq("id", video_id) \
-            .execute()
+        video = db.query(Video).filter(Video.id == uuid_lib.UUID(video_id)).first()
         
-        if not video.data or len(video.data) == 0:
+        if not video:
             raise HTTPException(status_code=404, detail="Video not found")
         
         # Read file content
@@ -144,13 +114,13 @@ async def submit_audio_answer(
         
         # Generate unique filename
         file_extension = file.filename.split('.')[-1] if '.' in file.filename else 'mp3'
-        file_path = f"{user_id}/{video_id}_{uuid.uuid4()}.{file_extension}"
+        file_path = f"{user.id}/{video.id}_{uuid_lib.uuid4()}.{file_extension}"
         
         logger.info(f"Uploading audio file: {file_path}")
         
         # Upload to Supabase Storage
         try:
-            storage_response = supabase.storage \
+            storage_response = supabase_storage.storage \
                 .from_("e2e-audio") \
                 .upload(file_path, contents, {"content-type": file.content_type or "audio/mpeg"})
         except Exception as storage_error:
@@ -158,30 +128,29 @@ async def submit_audio_answer(
             raise HTTPException(status_code=500, detail=f"Failed to upload audio: {str(storage_error)}")
         
         # Get public URL
-        audio_url = supabase.storage \
+        audio_url = supabase_storage.storage \
             .from_("e2e-audio") \
             .get_public_url(file_path)
         
         # Save answer metadata to database
-        answer = supabase.table("answers") \
-            .insert({
-                "user_id": user_id,
-                "question_id": question_id,
-                "video_id": video_id,
-                "response_type": "audio",
-                "audio_url": audio_url,
-                "audio_duration_seconds": 30,  # Placeholder - could be extracted from file
-                "created_at": datetime.now().isoformat()
-            }) \
-            .execute()
+        answer = Answer(
+            user_id=user.id,
+            question_id=question.id,
+            video_id=video.id,
+            response_type="audio",
+            audio_url=audio_url,
+            audio_duration_seconds=30,
+            created_at=datetime.now()
+        )
         
-        if not answer.data or len(answer.data) == 0:
-            raise HTTPException(status_code=500, detail="Failed to save answer")
+        db.add(answer)
+        db.commit()
+        db.refresh(answer)
         
         logger.info(f"Audio answer saved successfully")
         
         return AnswerResponse(
-            id=answer.data[0]['id'],
+            id=str(answer.id),
             status="saved",
             audio_url=audio_url,
             quality_score=None,
@@ -190,10 +159,9 @@ async def submit_audio_answer(
             concepts_identified=None,
             missing_concepts=None
         )
-    
     except HTTPException:
         raise
     except Exception as e:
         logger.error(f"Error submitting audio answer: {str(e)}")
+        db.rollback()
         raise HTTPException(status_code=500, detail=f"Error submitting audio answer: {str(e)}")
-
