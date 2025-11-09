@@ -60,6 +60,8 @@ htmlcov/
 *.swp
 
 # Docker
-.dockerignore
 docker-compose.override.yml
+
+# Git
+.git-rewrite
 

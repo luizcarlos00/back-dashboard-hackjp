@@ -1,0 +1,3 @@
+# This file ensures the audio upload directory is tracked by Git
+# Actual audio files are ignored via .gitignore
+
