@@ -11,40 +11,72 @@ logger = logging.getLogger(__name__)
 def get_video_info(video_id: str) -> Optional[Dict]:
     """
     Extrai informações do vídeo do YouTube usando yt-dlp
+    Retorna a URL DIRETA do arquivo de vídeo (não a página web)
     
     Args:
         video_id: ID do vídeo no YouTube (ex: dQw4w9WgXcQ)
     
     Returns:
-        Dict com url, title, thumbnail_url, duration ou None se falhar
+        Dict com url (direta), title, thumbnail_url, duration
     """
     try:
-        # Tentar como vídeo normal primeiro, depois como Shorts
         urls_to_try = [
             f"https://www.youtube.com/watch?v={video_id}",
             f"https://www.youtube.com/shorts/{video_id}"
         ]
         
-        for url in urls_to_try:
+        for youtube_url in urls_to_try:
             try:
                 ydl_opts = {
                     'quiet': True,
                     'no_warnings': True,
-                    'extract_flat': False,
-                    'format': 'best/bestvideo+bestaudio',
                 }
                 
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                    info = ydl.extract_info(url, download=False)
+                    info = ydl.extract_info(youtube_url, download=False)
                     
-                    if info:
-                        # Construir URL do YouTube (para exibir no app)
-                        youtube_url = f"https://www.youtube.com/watch?v={video_id}"
-                        if 'shorts' in url:
-                            youtube_url = f"https://www.youtube.com/shorts/{video_id}"
-                        
+                    if not info:
+                        continue
+                    
+                    # YouTube usa DASH (streams separados de vídeo e áudio)
+                    # Retornar TODAS as opções para o app decidir
+                    
+                    formats = info.get('formats', [])
+                    
+                    # 1. Tentar formatos combinados (vídeo + áudio)
+                    video_audio_formats = [
+                        f for f in formats 
+                        if f.get('url') and 
+                        f.get('vcodec') != 'none' and 
+                        f.get('acodec') != 'none' and 
+                        'googlevideo.com' in f.get('url', '')
+                    ]
+                    
+                    # 2. Formatos separados (DASH)
+                    video_only = [
+                        f for f in formats 
+                        if f.get('url') and 
+                        f.get('vcodec') != 'none' and 
+                        f.get('acodec') == 'none' and 
+                        'googlevideo.com' in f.get('url', '')
+                    ]
+                    
+                    audio_only = [
+                        f for f in formats 
+                        if f.get('url') and 
+                        f.get('vcodec') == 'none' and 
+                        f.get('acodec') != 'none' and 
+                        'googlevideo.com' in f.get('url', '')
+                    ]
+                    
+                    # Priorizar formato combinado
+                    if video_audio_formats:
+                        best = video_audio_formats[-1]
+                        logger.info(f"Formato combinado encontrado: {best.get('format_id')}")
                         return {
-                            'url': youtube_url,  # URL do YouTube para exibir
+                            'url': best.get('url'),
+                            'audio_url': None,
+                            'youtube_url': youtube_url,
                             'title': info.get('title'),
                             'thumbnail_url': info.get('thumbnail'),
                             'duration': info.get('duration'),
@@ -52,12 +84,46 @@ def get_video_info(video_id: str) -> Optional[Dict]:
                             'uploader': info.get('uploader'),
                             'view_count': info.get('view_count'),
                         }
+                    
+                    # Se só tem separados (DASH), retornar ambos
+                    elif video_only and audio_only:
+                        best_video = video_only[-1]
+                        best_audio = audio_only[-1]
+                        logger.info(f"DASH detectado: vídeo={best_video.get('format_id')}, áudio={best_audio.get('format_id')}")
+                        return {
+                            'url': best_video.get('url'),
+                            'audio_url': best_audio.get('url'),
+                            'youtube_url': youtube_url,
+                            'title': info.get('title'),
+                            'thumbnail_url': info.get('thumbnail'),
+                            'duration': info.get('duration'),
+                            'description': info.get('description'),
+                            'uploader': info.get('uploader'),
+                            'view_count': info.get('view_count'),
+                        }
+                    
+                    # Se só tem vídeo
+                    elif video_only:
+                        best_video = video_only[-1]
+                        logger.warning(f"Apenas vídeo disponível: {best_video.get('format_id')}")
+                        return {
+                            'url': best_video.get('url'),
+                            'audio_url': None,
+                            'youtube_url': youtube_url,
+                            'title': info.get('title'),
+                            'thumbnail_url': info.get('thumbnail'),
+                            'duration': info.get('duration'),
+                            'description': info.get('description'),
+                            'uploader': info.get('uploader'),
+                            'view_count': info.get('view_count'),
+                        }
+                    
             except Exception as e:
-                logger.debug(f"Tentativa com {url} falhou: {str(e)}")
+                logger.debug(f"Tentativa com {youtube_url} falhou: {str(e)}")
                 continue
         
-        # Se ambas falharam, retornar URL básica do YouTube
-        logger.warning(f"Não foi possível extrair info detalhada do vídeo {video_id}, usando URL padrão")
+        # Se ambas falharam, retornar URL da página (fallback)
+        logger.warning(f"Não foi possível extrair URL direta do vídeo {video_id}, retornando URL da página")
         return {
             'url': f"https://www.youtube.com/watch?v={video_id}",
             'title': None,
@@ -67,7 +133,6 @@ def get_video_info(video_id: str) -> Optional[Dict]:
     
     except Exception as e:
         logger.error(f"Erro ao extrair info do vídeo {video_id}: {str(e)}")
-        # Fallback: retornar URL básica
         return {
             'url': f"https://www.youtube.com/watch?v={video_id}",
             'title': None,
