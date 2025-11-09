@@ -8,12 +8,10 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      # Mount code for hot reload
-      - ./backend:/app
       # Persist database
-      - ./backend/feedbreak.db:/app/feedbreak.db
+      - feedbreak-db:/app/feedbreak.db
       # Persist uploads
-      - ./backend/uploads:/app/uploads
+      - feedbreak-uploads:/app/uploads
     environment:
       - DATABASE_URL=sqlite:///./feedbreak.db
       - PORT=8000
@@ -23,7 +21,7 @@ services:
     networks:
       - feedbreak-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -60,4 +58,6 @@ networks:
 
 volumes:
   feedbreak-data:
+  feedbreak-db:
+  feedbreak-uploads:
 
