@@ -32,6 +32,8 @@ class VideoResponse(BaseModel):
     content_id: str
     video_id: str
     url: Optional[str] = None
+    audio_url: Optional[str] = None
+    youtube_url: Optional[str] = None
     title: Optional[str]
     thumbnail_url: Optional[str] = None
     duration: Optional[int] = None

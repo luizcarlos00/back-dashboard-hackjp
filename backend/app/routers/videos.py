@@ -157,21 +157,19 @@ def _build_video_response(video: Video, include_url: bool = True) -> VideoRespon
         created_at=video.created_at
     )
     
-    # Se solicitado, buscar informações do vídeo via yt-dlp
     if include_url:
         try:
             video_info = get_video_info(video.video_id)
             if video_info:
                 response.url = video_info.get('url')
+                response.audio_url = video_info.get('audio_url')
+                response.youtube_url = video_info.get('youtube_url')
                 response.thumbnail_url = video_info.get('thumbnail_url')
                 response.duration = video_info.get('duration')
                 
-                # Se não tem título salvo, usa o do YouTube
                 if not response.title and video_info.get('title'):
                     response.title = video_info.get('title')
         except Exception as e:
             logger.error(f"Erro ao buscar info do vídeo {video.video_id}: {str(e)}")
-            # Continua sem a URL se falhar
-            pass
     
     return response
