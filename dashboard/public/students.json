@@ -1,0 +1,3335 @@
+[
+  {
+    "id": 1,
+    "nome": "Bruno Duarte",
+    "idade": 21,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-101",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-01"
+      },
+      {
+        "id": "content-102",
+        "tipo": "exercicio",
+        "titulo": "Lógica",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-103",
+        "tipo": "atividade",
+        "titulo": "Criar CRUD",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-03"
+      },
+      {
+        "id": "content-104",
+        "tipo": "exercicio",
+        "titulo": "Quiz Básico",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-105",
+        "tipo": "video",
+        "titulo": "Node.js",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-106",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-26"
+      },
+      {
+        "id": "content-107",
+        "tipo": "atividade",
+        "titulo": "Refatorar Código",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-15"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "nome": "Bernardo Moreira",
+    "idade": 21,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-201",
+        "tipo": "exercicio",
+        "titulo": "Async/Await",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-202",
+        "tipo": "exercicio",
+        "titulo": "Async/Await",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-203",
+        "tipo": "atividade",
+        "titulo": "Implementar Busca",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-22"
+      },
+      {
+        "id": "content-204",
+        "tipo": "atividade",
+        "titulo": "Criar CRUD",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-205",
+        "tipo": "exercicio",
+        "titulo": "Async/Await",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-26"
+      },
+      {
+        "id": "content-206",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-10"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "nome": "Clara Nascimento",
+    "idade": 18,
+    "escolaridade": "Médio",
+    "conteudos": [
+      {
+        "id": "content-301",
+        "tipo": "exercicio",
+        "titulo": "Arrays",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-19"
+      },
+      {
+        "id": "content-302",
+        "tipo": "atividade",
+        "titulo": "Consumir API",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-25"
+      },
+      {
+        "id": "content-303",
+        "tipo": "video",
+        "titulo": "Algoritmos",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-03"
+      },
+      {
+        "id": "content-304",
+        "tipo": "exercicio",
+        "titulo": "SQL",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-305",
+        "tipo": "exercicio",
+        "titulo": "DOM",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-23"
+      },
+      {
+        "id": "content-306",
+        "tipo": "atividade",
+        "titulo": "Refatorar Código",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-307",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-26"
+      },
+      {
+        "id": "content-308",
+        "tipo": "video",
+        "titulo": "Python",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-08"
+      },
+      {
+        "id": "content-309",
+        "tipo": "atividade",
+        "titulo": "Dashboard",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-25"
+      },
+      {
+        "id": "content-310",
+        "tipo": "video",
+        "titulo": "Testes",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-05"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "nome": "Olívia Carvalho",
+    "idade": 24,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-401",
+        "tipo": "exercicio",
+        "titulo": "State",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-402",
+        "tipo": "atividade",
+        "titulo": "Debugging",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-403",
+        "tipo": "video",
+        "titulo": "Git",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-16"
+      },
+      {
+        "id": "content-404",
+        "tipo": "atividade",
+        "titulo": "Debugging",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-03"
+      },
+      {
+        "id": "content-405",
+        "tipo": "exercicio",
+        "titulo": "Arrays",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-406",
+        "tipo": "atividade",
+        "titulo": "Consumir API",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-31"
+      },
+      {
+        "id": "content-407",
+        "tipo": "exercicio",
+        "titulo": "Funções",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-408",
+        "tipo": "exercicio",
+        "titulo": "Lógica",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-02"
+      },
+      {
+        "id": "content-409",
+        "tipo": "video",
+        "titulo": "CSS Grid",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-410",
+        "tipo": "video",
+        "titulo": "Banco de Dados",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-07"
+      },
+      {
+        "id": "content-411",
+        "tipo": "atividade",
+        "titulo": "Consumir API",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-14"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "nome": "Zeca Ribeiro",
+    "idade": 21,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-501",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-30"
+      },
+      {
+        "id": "content-502",
+        "tipo": "atividade",
+        "titulo": "Formulário",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-503",
+        "tipo": "exercicio",
+        "titulo": "TypeScript",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-11"
+      },
+      {
+        "id": "content-504",
+        "tipo": "video",
+        "titulo": "Banco de Dados",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-07"
+      },
+      {
+        "id": "content-505",
+        "tipo": "video",
+        "titulo": "Testes",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-11-06"
+      },
+      {
+        "id": "content-506",
+        "tipo": "exercicio",
+        "titulo": "DOM",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-11-08"
+      },
+      {
+        "id": "content-507",
+        "tipo": "video",
+        "titulo": "Estruturas de Dados",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-26"
+      },
+      {
+        "id": "content-508",
+        "tipo": "video",
+        "titulo": "Python",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-06"
+      },
+      {
+        "id": "content-509",
+        "tipo": "atividade",
+        "titulo": "Estilização CSS",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-03"
+      },
+      {
+        "id": "content-510",
+        "tipo": "exercicio",
+        "titulo": "Git",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-21"
+      },
+      {
+        "id": "content-511",
+        "tipo": "exercicio",
+        "titulo": "REST",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-512",
+        "tipo": "atividade",
+        "titulo": "Performance",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-20"
+      },
+      {
+        "id": "content-513",
+        "tipo": "video",
+        "titulo": "Testes",
+        "dificuldade": "Difícil",
+        "concluido": false
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "nome": "Carla Ribeiro",
+    "idade": 19,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-601",
+        "tipo": "atividade",
+        "titulo": "Consumir API",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-31"
+      },
+      {
+        "id": "content-602",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-05"
+      },
+      {
+        "id": "content-603",
+        "tipo": "atividade",
+        "titulo": "Componentes React",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-27"
+      },
+      {
+        "id": "content-604",
+        "tipo": "video",
+        "titulo": "Introdução à Programação",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-605",
+        "tipo": "exercicio",
+        "titulo": "DOM",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-12"
+      },
+      {
+        "id": "content-606",
+        "tipo": "exercicio",
+        "titulo": "Promises",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-607",
+        "tipo": "exercicio",
+        "titulo": "SQL",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-608",
+        "tipo": "atividade",
+        "titulo": "Criar CRUD",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-04"
+      },
+      {
+        "id": "content-609",
+        "tipo": "atividade",
+        "titulo": "Site Pessoal",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-17"
+      },
+      {
+        "id": "content-610",
+        "tipo": "exercicio",
+        "titulo": "REST",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-12"
+      },
+      {
+        "id": "content-611",
+        "tipo": "atividade",
+        "titulo": "Componentes React",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-612",
+        "tipo": "video",
+        "titulo": "JavaScript",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-613",
+        "tipo": "exercicio",
+        "titulo": "TypeScript",
+        "dificuldade": "Difícil",
+        "concluido": false
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "nome": "Diego Rocha",
+    "idade": 16,
+    "escolaridade": "Médio",
+    "conteudos": [
+      {
+        "id": "content-701",
+        "tipo": "atividade",
+        "titulo": "Formulário",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-702",
+        "tipo": "exercicio",
+        "titulo": "Teste JavaScript",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-11"
+      },
+      {
+        "id": "content-703",
+        "tipo": "exercicio",
+        "titulo": "Funções",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-11"
+      },
+      {
+        "id": "content-704",
+        "tipo": "atividade",
+        "titulo": "Validação",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-705",
+        "tipo": "video",
+        "titulo": "Banco de Dados",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-18"
+      },
+      {
+        "id": "content-706",
+        "tipo": "atividade",
+        "titulo": "Dashboard",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-707",
+        "tipo": "exercicio",
+        "titulo": "HTML/CSS",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-03"
+      },
+      {
+        "id": "content-708",
+        "tipo": "atividade",
+        "titulo": "Consumir API",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-709",
+        "tipo": "video",
+        "titulo": "JavaScript",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-28"
+      },
+      {
+        "id": "content-710",
+        "tipo": "atividade",
+        "titulo": "Design Patterns",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-711",
+        "tipo": "exercicio",
+        "titulo": "Lógica",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-712",
+        "tipo": "atividade",
+        "titulo": "Criar Lista",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-24"
+      },
+      {
+        "id": "content-713",
+        "tipo": "video",
+        "titulo": "TypeScript",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-20"
+      },
+      {
+        "id": "content-714",
+        "tipo": "video",
+        "titulo": "Introdução à Programação",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-08"
+      },
+      {
+        "id": "content-715",
+        "tipo": "video",
+        "titulo": "Git",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-08-22"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "nome": "Clara Lima",
+    "idade": 18,
+    "escolaridade": "Médio",
+    "conteudos": [
+      {
+        "id": "content-801",
+        "tipo": "video",
+        "titulo": "Testes",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-15"
+      },
+      {
+        "id": "content-802",
+        "tipo": "video",
+        "titulo": "Introdução à Programação",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-803",
+        "tipo": "atividade",
+        "titulo": "Criar CRUD",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-10"
+      },
+      {
+        "id": "content-804",
+        "tipo": "video",
+        "titulo": "Python",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-08"
+      },
+      {
+        "id": "content-805",
+        "tipo": "atividade",
+        "titulo": "Consumir API",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-29"
+      },
+      {
+        "id": "content-806",
+        "tipo": "exercicio",
+        "titulo": "REST",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-807",
+        "tipo": "exercicio",
+        "titulo": "Promises",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-17"
+      },
+      {
+        "id": "content-808",
+        "tipo": "video",
+        "titulo": "Node.js",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-809",
+        "tipo": "exercicio",
+        "titulo": "Async/Await",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-26"
+      },
+      {
+        "id": "content-810",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-09"
+      },
+      {
+        "id": "content-811",
+        "tipo": "atividade",
+        "titulo": "Criar CRUD",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-812",
+        "tipo": "atividade",
+        "titulo": "Design Patterns",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-813",
+        "tipo": "atividade",
+        "titulo": "Componentes React",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-17"
+      },
+      {
+        "id": "content-814",
+        "tipo": "video",
+        "titulo": "TypeScript",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-03"
+      },
+      {
+        "id": "content-815",
+        "tipo": "atividade",
+        "titulo": "Criar Lista",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-07"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "nome": "Diego Castro",
+    "idade": 13,
+    "escolaridade": "Fundamental",
+    "conteudos": [
+      {
+        "id": "content-901",
+        "tipo": "exercicio",
+        "titulo": "REST",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-10"
+      },
+      {
+        "id": "content-902",
+        "tipo": "exercicio",
+        "titulo": "REST",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-903",
+        "tipo": "atividade",
+        "titulo": "Criar Lista",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-904",
+        "tipo": "video",
+        "titulo": "APIs REST",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-03"
+      },
+      {
+        "id": "content-905",
+        "tipo": "atividade",
+        "titulo": "Implementar Busca",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-02"
+      },
+      {
+        "id": "content-906",
+        "tipo": "exercicio",
+        "titulo": "Git",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-18"
+      },
+      {
+        "id": "content-907",
+        "tipo": "atividade",
+        "titulo": "Site Pessoal",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-11"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "nome": "Sofia Silva",
+    "idade": 14,
+    "escolaridade": "Fundamental",
+    "conteudos": [
+      {
+        "id": "content-1001",
+        "tipo": "video",
+        "titulo": "Algoritmos",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-26"
+      },
+      {
+        "id": "content-1002",
+        "tipo": "video",
+        "titulo": "JavaScript",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-1003",
+        "tipo": "atividade",
+        "titulo": "Dashboard",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-1004",
+        "tipo": "atividade",
+        "titulo": "Consumir API",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-1005",
+        "tipo": "exercicio",
+        "titulo": "Promises",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-23"
+      },
+      {
+        "id": "content-1006",
+        "tipo": "exercicio",
+        "titulo": "Lógica",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-08-17"
+      },
+      {
+        "id": "content-1007",
+        "tipo": "exercicio",
+        "titulo": "REST",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-30"
+      },
+      {
+        "id": "content-1008",
+        "tipo": "exercicio",
+        "titulo": "Teste JavaScript",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-1009",
+        "tipo": "atividade",
+        "titulo": "Estilização CSS",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-17"
+      },
+      {
+        "id": "content-1010",
+        "tipo": "atividade",
+        "titulo": "Estilização CSS",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-27"
+      },
+      {
+        "id": "content-1011",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-26"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "nome": "Bruno Carvalho",
+    "idade": 15,
+    "escolaridade": "Médio",
+    "conteudos": [
+      {
+        "id": "content-1101",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-11"
+      },
+      {
+        "id": "content-1102",
+        "tipo": "video",
+        "titulo": "Testes",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-01"
+      },
+      {
+        "id": "content-1103",
+        "tipo": "atividade",
+        "titulo": "Debugging",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-11-08"
+      },
+      {
+        "id": "content-1104",
+        "tipo": "exercicio",
+        "titulo": "Arrays",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-23"
+      },
+      {
+        "id": "content-1105",
+        "tipo": "atividade",
+        "titulo": "Criar CRUD",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-07"
+      },
+      {
+        "id": "content-1106",
+        "tipo": "exercicio",
+        "titulo": "Git",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-1107",
+        "tipo": "atividade",
+        "titulo": "Formulário",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-1108",
+        "tipo": "video",
+        "titulo": "JavaScript",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-13"
+      },
+      {
+        "id": "content-1109",
+        "tipo": "atividade",
+        "titulo": "Refatorar Código",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-12"
+      },
+      {
+        "id": "content-1110",
+        "tipo": "video",
+        "titulo": "JavaScript",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-1111",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-06"
+      },
+      {
+        "id": "content-1112",
+        "tipo": "video",
+        "titulo": "CSS Grid",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-27"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "nome": "Wagner Araújo",
+    "idade": 18,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-1201",
+        "tipo": "atividade",
+        "titulo": "Criar Lista",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-08"
+      },
+      {
+        "id": "content-1202",
+        "tipo": "exercicio",
+        "titulo": "REST",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-1203",
+        "tipo": "video",
+        "titulo": "TypeScript",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-1204",
+        "tipo": "exercicio",
+        "titulo": "Teste JavaScript",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-08"
+      },
+      {
+        "id": "content-1205",
+        "tipo": "exercicio",
+        "titulo": "Lógica",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-11-06"
+      },
+      {
+        "id": "content-1206",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-1207",
+        "tipo": "atividade",
+        "titulo": "Criar CRUD",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-1208",
+        "tipo": "exercicio",
+        "titulo": "Lógica",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-31"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "nome": "Queila Nascimento",
+    "idade": 15,
+    "escolaridade": "Médio",
+    "conteudos": [
+      {
+        "id": "content-1301",
+        "tipo": "atividade",
+        "titulo": "Dashboard",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-16"
+      },
+      {
+        "id": "content-1302",
+        "tipo": "video",
+        "titulo": "Algoritmos",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-09"
+      },
+      {
+        "id": "content-1303",
+        "tipo": "atividade",
+        "titulo": "Componentes React",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-03"
+      },
+      {
+        "id": "content-1304",
+        "tipo": "video",
+        "titulo": "Algoritmos",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-1305",
+        "tipo": "exercicio",
+        "titulo": "Promises",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-24"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "nome": "Sofia Moreira",
+    "idade": 11,
+    "escolaridade": "Fundamental",
+    "conteudos": [
+      {
+        "id": "content-1401",
+        "tipo": "exercicio",
+        "titulo": "Arrays",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-1402",
+        "tipo": "exercicio",
+        "titulo": "Quiz Básico",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-1403",
+        "tipo": "atividade",
+        "titulo": "Site Pessoal",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-19"
+      },
+      {
+        "id": "content-1404",
+        "tipo": "video",
+        "titulo": "Introdução à Programação",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-06"
+      },
+      {
+        "id": "content-1405",
+        "tipo": "exercicio",
+        "titulo": "Arrays",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-17"
+      },
+      {
+        "id": "content-1406",
+        "tipo": "exercicio",
+        "titulo": "React Hooks",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-11-04"
+      },
+      {
+        "id": "content-1407",
+        "tipo": "exercicio",
+        "titulo": "Async/Await",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-11-08"
+      },
+      {
+        "id": "content-1408",
+        "tipo": "exercicio",
+        "titulo": "State",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-1409",
+        "tipo": "exercicio",
+        "titulo": "SQL",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-14"
+      },
+      {
+        "id": "content-1410",
+        "tipo": "exercicio",
+        "titulo": "Lógica",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-21"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "nome": "Natália Moreira",
+    "idade": 21,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-1501",
+        "tipo": "video",
+        "titulo": "Algoritmos",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-1502",
+        "tipo": "exercicio",
+        "titulo": "Funções",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-11"
+      },
+      {
+        "id": "content-1503",
+        "tipo": "video",
+        "titulo": "CSS Grid",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-1504",
+        "tipo": "video",
+        "titulo": "TypeScript",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-1505",
+        "tipo": "atividade",
+        "titulo": "Autenticação",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-18"
+      },
+      {
+        "id": "content-1506",
+        "tipo": "exercicio",
+        "titulo": "Arrays",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-1507",
+        "tipo": "video",
+        "titulo": "Node.js",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-1508",
+        "tipo": "video",
+        "titulo": "Node.js",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-1509",
+        "tipo": "exercicio",
+        "titulo": "Arrays",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-06"
+      },
+      {
+        "id": "content-1510",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-11"
+      },
+      {
+        "id": "content-1511",
+        "tipo": "video",
+        "titulo": "Git",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-05"
+      },
+      {
+        "id": "content-1512",
+        "tipo": "video",
+        "titulo": "Introdução à Programação",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-07"
+      },
+      {
+        "id": "content-1513",
+        "tipo": "atividade",
+        "titulo": "Performance",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-30"
+      },
+      {
+        "id": "content-1514",
+        "tipo": "atividade",
+        "titulo": "Componentes React",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-16"
+      },
+      {
+        "id": "content-1515",
+        "tipo": "video",
+        "titulo": "React",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-29"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "nome": "Ana Ribeiro",
+    "idade": 28,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-1601",
+        "tipo": "exercicio",
+        "titulo": "Teste JavaScript",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-13"
+      },
+      {
+        "id": "content-1602",
+        "tipo": "atividade",
+        "titulo": "Design Patterns",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-09"
+      },
+      {
+        "id": "content-1603",
+        "tipo": "exercicio",
+        "titulo": "State",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-11-03"
+      },
+      {
+        "id": "content-1604",
+        "tipo": "exercicio",
+        "titulo": "REST",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-03"
+      },
+      {
+        "id": "content-1605",
+        "tipo": "video",
+        "titulo": "React",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-1606",
+        "tipo": "atividade",
+        "titulo": "Implementar Busca",
+        "dificuldade": "Médio",
+        "concluido": false
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "nome": "Thiago Nascimento",
+    "idade": 27,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-1701",
+        "tipo": "video",
+        "titulo": "Banco de Dados",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-27"
+      },
+      {
+        "id": "content-1702",
+        "tipo": "video",
+        "titulo": "Python",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-23"
+      },
+      {
+        "id": "content-1703",
+        "tipo": "video",
+        "titulo": "Introdução à Programação",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-1704",
+        "tipo": "atividade",
+        "titulo": "Site Pessoal",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-1705",
+        "tipo": "video",
+        "titulo": "Node.js",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-04"
+      },
+      {
+        "id": "content-1706",
+        "tipo": "exercicio",
+        "titulo": "State",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-04"
+      },
+      {
+        "id": "content-1707",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-30"
+      },
+      {
+        "id": "content-1708",
+        "tipo": "video",
+        "titulo": "Algoritmos",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-25"
+      },
+      {
+        "id": "content-1709",
+        "tipo": "video",
+        "titulo": "Testes",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-26"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "nome": "Thiago Duarte",
+    "idade": 13,
+    "escolaridade": "Fundamental",
+    "conteudos": [
+      {
+        "id": "content-1801",
+        "tipo": "exercicio",
+        "titulo": "React Hooks",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-11-05"
+      },
+      {
+        "id": "content-1802",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-27"
+      },
+      {
+        "id": "content-1803",
+        "tipo": "exercicio",
+        "titulo": "Async/Await",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-1804",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-09"
+      },
+      {
+        "id": "content-1805",
+        "tipo": "exercicio",
+        "titulo": "TypeScript",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-18"
+      },
+      {
+        "id": "content-1806",
+        "tipo": "video",
+        "titulo": "Git",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-19"
+      },
+      {
+        "id": "content-1807",
+        "tipo": "atividade",
+        "titulo": "Criar Lista",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-08"
+      },
+      {
+        "id": "content-1808",
+        "tipo": "atividade",
+        "titulo": "Autenticação",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-01"
+      },
+      {
+        "id": "content-1809",
+        "tipo": "atividade",
+        "titulo": "Estilização CSS",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-08-26"
+      },
+      {
+        "id": "content-1810",
+        "tipo": "atividade",
+        "titulo": "Implementar Busca",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-24"
+      },
+      {
+        "id": "content-1811",
+        "tipo": "exercicio",
+        "titulo": "SQL",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-20"
+      },
+      {
+        "id": "content-1812",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-11-08"
+      },
+      {
+        "id": "content-1813",
+        "tipo": "exercicio",
+        "titulo": "HTML/CSS",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-11-02"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "nome": "Júlia Carvalho",
+    "idade": 18,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-1901",
+        "tipo": "atividade",
+        "titulo": "Implementar Busca",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-1902",
+        "tipo": "exercicio",
+        "titulo": "Async/Await",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-1903",
+        "tipo": "atividade",
+        "titulo": "Design Patterns",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-1904",
+        "tipo": "video",
+        "titulo": "Algoritmos",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-1905",
+        "tipo": "exercicio",
+        "titulo": "TypeScript",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-02"
+      },
+      {
+        "id": "content-1906",
+        "tipo": "atividade",
+        "titulo": "Debugging",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-28"
+      },
+      {
+        "id": "content-1907",
+        "tipo": "atividade",
+        "titulo": "Autenticação",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-18"
+      },
+      {
+        "id": "content-1908",
+        "tipo": "atividade",
+        "titulo": "Performance",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-02"
+      },
+      {
+        "id": "content-1909",
+        "tipo": "atividade",
+        "titulo": "Performance",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-21"
+      },
+      {
+        "id": "content-1910",
+        "tipo": "atividade",
+        "titulo": "Implementar Busca",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-08"
+      },
+      {
+        "id": "content-1911",
+        "tipo": "video",
+        "titulo": "CSS Grid",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-1912",
+        "tipo": "video",
+        "titulo": "CSS Grid",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-07"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "nome": "Clara Silva",
+    "idade": 12,
+    "escolaridade": "Fundamental",
+    "conteudos": [
+      {
+        "id": "content-2001",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-2002",
+        "tipo": "exercicio",
+        "titulo": "REST",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-28"
+      },
+      {
+        "id": "content-2003",
+        "tipo": "exercicio",
+        "titulo": "TypeScript",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-13"
+      },
+      {
+        "id": "content-2004",
+        "tipo": "video",
+        "titulo": "React",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-11-02"
+      },
+      {
+        "id": "content-2005",
+        "tipo": "exercicio",
+        "titulo": "Promises",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-16"
+      },
+      {
+        "id": "content-2006",
+        "tipo": "video",
+        "titulo": "CSS Grid",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-2007",
+        "tipo": "exercicio",
+        "titulo": "Funções",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-11-01"
+      },
+      {
+        "id": "content-2008",
+        "tipo": "atividade",
+        "titulo": "Criar CRUD",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-10"
+      },
+      {
+        "id": "content-2009",
+        "tipo": "video",
+        "titulo": "Git",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-21"
+      },
+      {
+        "id": "content-2010",
+        "tipo": "video",
+        "titulo": "Git",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-2011",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-2012",
+        "tipo": "exercicio",
+        "titulo": "Async/Await",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-03"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "nome": "Bruno Araújo",
+    "idade": 12,
+    "escolaridade": "Fundamental",
+    "conteudos": [
+      {
+        "id": "content-2101",
+        "tipo": "video",
+        "titulo": "Algoritmos",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-01"
+      },
+      {
+        "id": "content-2102",
+        "tipo": "video",
+        "titulo": "Python",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-22"
+      },
+      {
+        "id": "content-2103",
+        "tipo": "video",
+        "titulo": "Node.js",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-19"
+      },
+      {
+        "id": "content-2104",
+        "tipo": "video",
+        "titulo": "React",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-06"
+      },
+      {
+        "id": "content-2105",
+        "tipo": "video",
+        "titulo": "TypeScript",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-12"
+      },
+      {
+        "id": "content-2106",
+        "tipo": "exercicio",
+        "titulo": "Quiz Básico",
+        "dificuldade": "Difícil",
+        "concluido": false
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "nome": "Felipe Moreira",
+    "idade": 18,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-2201",
+        "tipo": "atividade",
+        "titulo": "Debugging",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-30"
+      },
+      {
+        "id": "content-2202",
+        "tipo": "video",
+        "titulo": "TypeScript",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-2203",
+        "tipo": "atividade",
+        "titulo": "Criar CRUD",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-2204",
+        "tipo": "video",
+        "titulo": "Testes",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-22"
+      },
+      {
+        "id": "content-2205",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-22"
+      },
+      {
+        "id": "content-2206",
+        "tipo": "video",
+        "titulo": "React",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-08-21"
+      },
+      {
+        "id": "content-2207",
+        "tipo": "exercicio",
+        "titulo": "TypeScript",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-2208",
+        "tipo": "video",
+        "titulo": "Estruturas de Dados",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-14"
+      },
+      {
+        "id": "content-2209",
+        "tipo": "atividade",
+        "titulo": "Criar Lista",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-28"
+      },
+      {
+        "id": "content-2210",
+        "tipo": "video",
+        "titulo": "Testes",
+        "dificuldade": "Difícil",
+        "concluido": false
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "nome": "Olívia Ribeiro",
+    "idade": 25,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-2301",
+        "tipo": "exercicio",
+        "titulo": "Async/Await",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-19"
+      },
+      {
+        "id": "content-2302",
+        "tipo": "video",
+        "titulo": "CSS Grid",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-30"
+      },
+      {
+        "id": "content-2303",
+        "tipo": "exercicio",
+        "titulo": "Funções",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-08"
+      },
+      {
+        "id": "content-2304",
+        "tipo": "exercicio",
+        "titulo": "Git",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-19"
+      },
+      {
+        "id": "content-2305",
+        "tipo": "video",
+        "titulo": "Estruturas de Dados",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-23"
+      },
+      {
+        "id": "content-2306",
+        "tipo": "video",
+        "titulo": "Estruturas de Dados",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-2307",
+        "tipo": "exercicio",
+        "titulo": "Promises",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-11"
+      },
+      {
+        "id": "content-2308",
+        "tipo": "atividade",
+        "titulo": "Formulário",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-13"
+      },
+      {
+        "id": "content-2309",
+        "tipo": "exercicio",
+        "titulo": "React Hooks",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-25"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "nome": "Nicolas Fernandes",
+    "idade": 27,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-2401",
+        "tipo": "exercicio",
+        "titulo": "Funções",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-2402",
+        "tipo": "video",
+        "titulo": "Python",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-2403",
+        "tipo": "exercicio",
+        "titulo": "HTML/CSS",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-19"
+      },
+      {
+        "id": "content-2404",
+        "tipo": "video",
+        "titulo": "React",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-31"
+      },
+      {
+        "id": "content-2405",
+        "tipo": "exercicio",
+        "titulo": "Git",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-2406",
+        "tipo": "exercicio",
+        "titulo": "Promises",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-15"
+      },
+      {
+        "id": "content-2407",
+        "tipo": "exercicio",
+        "titulo": "SQL",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-09"
+      },
+      {
+        "id": "content-2408",
+        "tipo": "exercicio",
+        "titulo": "SQL",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-27"
+      },
+      {
+        "id": "content-2409",
+        "tipo": "atividade",
+        "titulo": "Consumir API",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-15"
+      },
+      {
+        "id": "content-2410",
+        "tipo": "atividade",
+        "titulo": "Autenticação",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-29"
+      },
+      {
+        "id": "content-2411",
+        "tipo": "atividade",
+        "titulo": "Validação",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-09"
+      },
+      {
+        "id": "content-2412",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Médio",
+        "concluido": false
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "nome": "Hugo Silva",
+    "idade": 15,
+    "escolaridade": "Médio",
+    "conteudos": [
+      {
+        "id": "content-2501",
+        "tipo": "atividade",
+        "titulo": "Estilização CSS",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-11"
+      },
+      {
+        "id": "content-2502",
+        "tipo": "exercicio",
+        "titulo": "State",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-26"
+      },
+      {
+        "id": "content-2503",
+        "tipo": "atividade",
+        "titulo": "Consumir API",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-2504",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-2505",
+        "tipo": "video",
+        "titulo": "JavaScript",
+        "dificuldade": "Fácil",
+        "concluido": false
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "nome": "Fabiana Silva",
+    "idade": 12,
+    "escolaridade": "Fundamental",
+    "conteudos": [
+      {
+        "id": "content-2601",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-13"
+      },
+      {
+        "id": "content-2602",
+        "tipo": "video",
+        "titulo": "Node.js",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-2603",
+        "tipo": "atividade",
+        "titulo": "Validação",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-2604",
+        "tipo": "video",
+        "titulo": "Testes",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-2605",
+        "tipo": "exercicio",
+        "titulo": "State",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-27"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "nome": "Gustavo Lima",
+    "idade": 18,
+    "escolaridade": "Médio",
+    "conteudos": [
+      {
+        "id": "content-2701",
+        "tipo": "exercicio",
+        "titulo": "DOM",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-03"
+      },
+      {
+        "id": "content-2702",
+        "tipo": "video",
+        "titulo": "Estruturas de Dados",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-2703",
+        "tipo": "exercicio",
+        "titulo": "Async/Await",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-30"
+      },
+      {
+        "id": "content-2704",
+        "tipo": "video",
+        "titulo": "Banco de Dados",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-09"
+      },
+      {
+        "id": "content-2705",
+        "tipo": "video",
+        "titulo": "Node.js",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-04"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "nome": "Ana Fernandes",
+    "idade": 16,
+    "escolaridade": "Médio",
+    "conteudos": [
+      {
+        "id": "content-2801",
+        "tipo": "atividade",
+        "titulo": "Criar Lista",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-2802",
+        "tipo": "exercicio",
+        "titulo": "Quiz Básico",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-27"
+      },
+      {
+        "id": "content-2803",
+        "tipo": "exercicio",
+        "titulo": "React Hooks",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-25"
+      },
+      {
+        "id": "content-2804",
+        "tipo": "exercicio",
+        "titulo": "Async/Await",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-15"
+      },
+      {
+        "id": "content-2805",
+        "tipo": "exercicio",
+        "titulo": "Funções",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-14"
+      },
+      {
+        "id": "content-2806",
+        "tipo": "atividade",
+        "titulo": "Formulário",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-08-22"
+      },
+      {
+        "id": "content-2807",
+        "tipo": "video",
+        "titulo": "Algoritmos",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-23"
+      },
+      {
+        "id": "content-2808",
+        "tipo": "video",
+        "titulo": "Banco de Dados",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-11-05"
+      },
+      {
+        "id": "content-2809",
+        "tipo": "exercicio",
+        "titulo": "Arrays",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-2810",
+        "tipo": "exercicio",
+        "titulo": "React Hooks",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-16"
+      },
+      {
+        "id": "content-2811",
+        "tipo": "video",
+        "titulo": "Algoritmos",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-12"
+      },
+      {
+        "id": "content-2812",
+        "tipo": "exercicio",
+        "titulo": "SQL",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-23"
+      },
+      {
+        "id": "content-2813",
+        "tipo": "atividade",
+        "titulo": "Site Pessoal",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-18"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "nome": "Andréa Duarte",
+    "idade": 20,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-2901",
+        "tipo": "atividade",
+        "titulo": "Consumir API",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-03"
+      },
+      {
+        "id": "content-2902",
+        "tipo": "exercicio",
+        "titulo": "Teste JavaScript",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-16"
+      },
+      {
+        "id": "content-2903",
+        "tipo": "video",
+        "titulo": "Estruturas de Dados",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-28"
+      },
+      {
+        "id": "content-2904",
+        "tipo": "exercicio",
+        "titulo": "Async/Await",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-12"
+      },
+      {
+        "id": "content-2905",
+        "tipo": "video",
+        "titulo": "Banco de Dados",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-28"
+      },
+      {
+        "id": "content-2906",
+        "tipo": "exercicio",
+        "titulo": "Lógica",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-14"
+      },
+      {
+        "id": "content-2907",
+        "tipo": "video",
+        "titulo": "Testes",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-21"
+      },
+      {
+        "id": "content-2908",
+        "tipo": "atividade",
+        "titulo": "Componentes React",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-17"
+      },
+      {
+        "id": "content-2909",
+        "tipo": "exercicio",
+        "titulo": "TypeScript",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-02"
+      },
+      {
+        "id": "content-2910",
+        "tipo": "video",
+        "titulo": "JavaScript",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-2911",
+        "tipo": "video",
+        "titulo": "APIs REST",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-2912",
+        "tipo": "video",
+        "titulo": "React",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-18"
+      },
+      {
+        "id": "content-2913",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-14"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "nome": "Elisa Costa",
+    "idade": 21,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-3001",
+        "tipo": "atividade",
+        "titulo": "Autenticação",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-3002",
+        "tipo": "atividade",
+        "titulo": "Design Patterns",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-3003",
+        "tipo": "exercicio",
+        "titulo": "TypeScript",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-3004",
+        "tipo": "exercicio",
+        "titulo": "State",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-14"
+      },
+      {
+        "id": "content-3005",
+        "tipo": "atividade",
+        "titulo": "Componentes React",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-06"
+      },
+      {
+        "id": "content-3006",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-08"
+      },
+      {
+        "id": "content-3007",
+        "tipo": "video",
+        "titulo": "Node.js",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-12"
+      },
+      {
+        "id": "content-3008",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-28"
+      },
+      {
+        "id": "content-3009",
+        "tipo": "exercicio",
+        "titulo": "DOM",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-20"
+      },
+      {
+        "id": "content-3010",
+        "tipo": "exercicio",
+        "titulo": "Lógica",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-28"
+      },
+      {
+        "id": "content-3011",
+        "tipo": "video",
+        "titulo": "JavaScript",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-08-22"
+      },
+      {
+        "id": "content-3012",
+        "tipo": "atividade",
+        "titulo": "Performance",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-23"
+      },
+      {
+        "id": "content-3013",
+        "tipo": "video",
+        "titulo": "Estruturas de Dados",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-26"
+      },
+      {
+        "id": "content-3014",
+        "tipo": "video",
+        "titulo": "Testes",
+        "dificuldade": "Difícil",
+        "concluido": false
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "nome": "Vitor Pinto",
+    "idade": 17,
+    "escolaridade": "Médio",
+    "conteudos": [
+      {
+        "id": "content-3101",
+        "tipo": "exercicio",
+        "titulo": "Promises",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-3102",
+        "tipo": "atividade",
+        "titulo": "Debugging",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-26"
+      },
+      {
+        "id": "content-3103",
+        "tipo": "atividade",
+        "titulo": "Formulário",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-23"
+      },
+      {
+        "id": "content-3104",
+        "tipo": "atividade",
+        "titulo": "Debugging",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-3105",
+        "tipo": "exercicio",
+        "titulo": "Async/Await",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-26"
+      },
+      {
+        "id": "content-3106",
+        "tipo": "atividade",
+        "titulo": "Validação",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-3107",
+        "tipo": "exercicio",
+        "titulo": "State",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-21"
+      },
+      {
+        "id": "content-3108",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-03"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "nome": "Olívia Rocha",
+    "idade": 27,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-3201",
+        "tipo": "atividade",
+        "titulo": "Validação",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-04"
+      },
+      {
+        "id": "content-3202",
+        "tipo": "exercicio",
+        "titulo": "Quiz Básico",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-3203",
+        "tipo": "video",
+        "titulo": "Estruturas de Dados",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-3204",
+        "tipo": "atividade",
+        "titulo": "Criar CRUD",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-3205",
+        "tipo": "video",
+        "titulo": "Algoritmos",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-22"
+      },
+      {
+        "id": "content-3206",
+        "tipo": "video",
+        "titulo": "TypeScript",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-01"
+      },
+      {
+        "id": "content-3207",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-08"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "nome": "Kevin Silva",
+    "idade": 16,
+    "escolaridade": "Médio",
+    "conteudos": [
+      {
+        "id": "content-3301",
+        "tipo": "video",
+        "titulo": "JavaScript",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-29"
+      },
+      {
+        "id": "content-3302",
+        "tipo": "exercicio",
+        "titulo": "REST",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-02"
+      },
+      {
+        "id": "content-3303",
+        "tipo": "exercicio",
+        "titulo": "State",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-06"
+      },
+      {
+        "id": "content-3304",
+        "tipo": "video",
+        "titulo": "Estruturas de Dados",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-3305",
+        "tipo": "exercicio",
+        "titulo": "React Hooks",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-3306",
+        "tipo": "atividade",
+        "titulo": "Debugging",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-22"
+      },
+      {
+        "id": "content-3307",
+        "tipo": "video",
+        "titulo": "Estruturas de Dados",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-27"
+      },
+      {
+        "id": "content-3308",
+        "tipo": "video",
+        "titulo": "Introdução à Programação",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-05"
+      },
+      {
+        "id": "content-3309",
+        "tipo": "video",
+        "titulo": "React",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-11-04"
+      },
+      {
+        "id": "content-3310",
+        "tipo": "atividade",
+        "titulo": "Site Pessoal",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-20"
+      },
+      {
+        "id": "content-3311",
+        "tipo": "video",
+        "titulo": "Introdução à Programação",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-02"
+      },
+      {
+        "id": "content-3312",
+        "tipo": "video",
+        "titulo": "Banco de Dados",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-12"
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "nome": "Ximena Fernandes",
+    "idade": 16,
+    "escolaridade": "Médio",
+    "conteudos": [
+      {
+        "id": "content-3401",
+        "tipo": "exercicio",
+        "titulo": "HTML/CSS",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-09"
+      },
+      {
+        "id": "content-3402",
+        "tipo": "exercicio",
+        "titulo": "Teste JavaScript",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-05"
+      },
+      {
+        "id": "content-3403",
+        "tipo": "video",
+        "titulo": "React",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-12"
+      },
+      {
+        "id": "content-3404",
+        "tipo": "video",
+        "titulo": "Python",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-19"
+      },
+      {
+        "id": "content-3405",
+        "tipo": "atividade",
+        "titulo": "Refatorar Código",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-01"
+      },
+      {
+        "id": "content-3406",
+        "tipo": "atividade",
+        "titulo": "Consumir API",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-21"
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "nome": "Thiago Santos",
+    "idade": 14,
+    "escolaridade": "Fundamental",
+    "conteudos": [
+      {
+        "id": "content-3501",
+        "tipo": "atividade",
+        "titulo": "Validação",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-08"
+      },
+      {
+        "id": "content-3502",
+        "tipo": "video",
+        "titulo": "JavaScript",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-3503",
+        "tipo": "exercicio",
+        "titulo": "HTML/CSS",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-14"
+      },
+      {
+        "id": "content-3504",
+        "tipo": "atividade",
+        "titulo": "Consumir API",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-25"
+      },
+      {
+        "id": "content-3505",
+        "tipo": "atividade",
+        "titulo": "Autenticação",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-01"
+      },
+      {
+        "id": "content-3506",
+        "tipo": "exercicio",
+        "titulo": "Lógica",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-22"
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "nome": "Ximena Pinto",
+    "idade": 12,
+    "escolaridade": "Fundamental",
+    "conteudos": [
+      {
+        "id": "content-3601",
+        "tipo": "video",
+        "titulo": "CSS Grid",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-12"
+      },
+      {
+        "id": "content-3602",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-3603",
+        "tipo": "atividade",
+        "titulo": "Refatorar Código",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-17"
+      },
+      {
+        "id": "content-3604",
+        "tipo": "atividade",
+        "titulo": "Design Patterns",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-19"
+      },
+      {
+        "id": "content-3605",
+        "tipo": "video",
+        "titulo": "Python",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-3606",
+        "tipo": "exercicio",
+        "titulo": "REST",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-3607",
+        "tipo": "exercicio",
+        "titulo": "React Hooks",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-13"
+      },
+      {
+        "id": "content-3608",
+        "tipo": "video",
+        "titulo": "Banco de Dados",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-3609",
+        "tipo": "atividade",
+        "titulo": "Criar CRUD",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-11"
+      },
+      {
+        "id": "content-3610",
+        "tipo": "atividade",
+        "titulo": "Validação",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-17"
+      },
+      {
+        "id": "content-3611",
+        "tipo": "atividade",
+        "titulo": "Refatorar Código",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-03"
+      },
+      {
+        "id": "content-3612",
+        "tipo": "exercicio",
+        "titulo": "HTML/CSS",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-08-29"
+      },
+      {
+        "id": "content-3613",
+        "tipo": "video",
+        "titulo": "Python",
+        "dificuldade": "Difícil",
+        "concluido": false
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "nome": "Mariana Alves",
+    "idade": 11,
+    "escolaridade": "Fundamental",
+    "conteudos": [
+      {
+        "id": "content-3701",
+        "tipo": "exercicio",
+        "titulo": "REST",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-01"
+      },
+      {
+        "id": "content-3702",
+        "tipo": "exercicio",
+        "titulo": "React Hooks",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-3703",
+        "tipo": "atividade",
+        "titulo": "Consumir API",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-27"
+      },
+      {
+        "id": "content-3704",
+        "tipo": "video",
+        "titulo": "Estruturas de Dados",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-15"
+      },
+      {
+        "id": "content-3705",
+        "tipo": "exercicio",
+        "titulo": "Quiz Básico",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-3706",
+        "tipo": "exercicio",
+        "titulo": "Teste JavaScript",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-10-07"
+      },
+      {
+        "id": "content-3707",
+        "tipo": "video",
+        "titulo": "Introdução à Programação",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-3708",
+        "tipo": "atividade",
+        "titulo": "Design Patterns",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-24"
+      },
+      {
+        "id": "content-3709",
+        "tipo": "video",
+        "titulo": "Python",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-04"
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "nome": "Bruno Ribeiro",
+    "idade": 21,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-3801",
+        "tipo": "exercicio",
+        "titulo": "TypeScript",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-3802",
+        "tipo": "atividade",
+        "titulo": "Formulário",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-08-12"
+      },
+      {
+        "id": "content-3803",
+        "tipo": "exercicio",
+        "titulo": "Teste JavaScript",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-30"
+      },
+      {
+        "id": "content-3804",
+        "tipo": "video",
+        "titulo": "Estruturas de Dados",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-3805",
+        "tipo": "video",
+        "titulo": "Algoritmos",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-3806",
+        "tipo": "video",
+        "titulo": "Testes",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-3807",
+        "tipo": "exercicio",
+        "titulo": "Lógica",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-3808",
+        "tipo": "atividade",
+        "titulo": "Debugging",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-08-13"
+      },
+      {
+        "id": "content-3809",
+        "tipo": "atividade",
+        "titulo": "Dashboard",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-10-18"
+      },
+      {
+        "id": "content-3810",
+        "tipo": "exercicio",
+        "titulo": "Teste JavaScript",
+        "dificuldade": "Fácil",
+        "concluido": false
+      },
+      {
+        "id": "content-3811",
+        "tipo": "atividade",
+        "titulo": "Debugging",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-09-03"
+      },
+      {
+        "id": "content-3812",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-08-26"
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "nome": "Leandro Castro",
+    "idade": 27,
+    "escolaridade": "Superior",
+    "conteudos": [
+      {
+        "id": "content-3901",
+        "tipo": "atividade",
+        "titulo": "Criar CRUD",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-31"
+      },
+      {
+        "id": "content-3902",
+        "tipo": "exercicio",
+        "titulo": "Lógica",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-3903",
+        "tipo": "exercicio",
+        "titulo": "SQL",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-16"
+      },
+      {
+        "id": "content-3904",
+        "tipo": "video",
+        "titulo": "Git",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-26"
+      },
+      {
+        "id": "content-3905",
+        "tipo": "video",
+        "titulo": "Banco de Dados",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-11-05"
+      },
+      {
+        "id": "content-3906",
+        "tipo": "atividade",
+        "titulo": "Criar CRUD",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-09-12"
+      },
+      {
+        "id": "content-3907",
+        "tipo": "atividade",
+        "titulo": "Criar CRUD",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-19"
+      },
+      {
+        "id": "content-3908",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-3909",
+        "tipo": "atividade",
+        "titulo": "Dashboard",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-20"
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "nome": "Queila Mendes",
+    "idade": 15,
+    "escolaridade": "Médio",
+    "conteudos": [
+      {
+        "id": "content-4001",
+        "tipo": "video",
+        "titulo": "Git",
+        "dificuldade": "Fácil",
+        "concluido": true,
+        "dataInicio": "2025-08-20"
+      },
+      {
+        "id": "content-4002",
+        "tipo": "atividade",
+        "titulo": "Componentes React",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-09-26"
+      },
+      {
+        "id": "content-4003",
+        "tipo": "atividade",
+        "titulo": "Refatorar Código",
+        "dificuldade": "Difícil",
+        "concluido": false
+      },
+      {
+        "id": "content-4004",
+        "tipo": "video",
+        "titulo": "Responsividade",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-08-12"
+      },
+      {
+        "id": "content-4005",
+        "tipo": "video",
+        "titulo": "APIs REST",
+        "dificuldade": "Médio",
+        "concluido": true,
+        "dataInicio": "2025-10-07"
+      },
+      {
+        "id": "content-4006",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-4007",
+        "tipo": "video",
+        "titulo": "POO",
+        "dificuldade": "Médio",
+        "concluido": false
+      },
+      {
+        "id": "content-4008",
+        "tipo": "atividade",
+        "titulo": "Criar Lista",
+        "dificuldade": "Difícil",
+        "concluido": true,
+        "dataInicio": "2025-08-18"
+      }
+    ]
+  }
+]
