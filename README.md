@@ -2,6 +2,13 @@
 
 Plataforma educacional com vídeos curtos e avaliações End-to-End (E2E) personalizadas por IA.
 
+## 👥 Autores
+
+-   **Ana Beatriz Mota da Cruz** - anabiamotacruz@gmail.com
+-   **Joaquim Germano Felix** - jucagfbr@gmail.com
+-   **Luiz Carlos V. De A. L. Neto** - luizcarlosveloso174@gmail.com
+-   **Pedro Henrique Kruta de Araújo Bispo** - work.kruta@gmail.com
+
 ## 🚀 Quick Start
 
 ### Pré-requisitos
