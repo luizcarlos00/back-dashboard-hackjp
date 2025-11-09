@@ -1,13 +1,14 @@
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Depends
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.config import supabase_storage
+from app.config import AUDIO_UPLOAD_DIR
 from app.db_models import User, Video, Question, Answer
 from app.models import AnswerTextRequest, AnswerResponse
 from app.services.langchain_analyzer import analyzer
 from datetime import datetime
 import uuid as uuid_lib
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -23,13 +24,13 @@ async def submit_text_answer(data: AnswerTextRequest, db: Session = Depends(get_
             raise HTTPException(status_code=404, detail="User not found")
         
         # Get question
-        question = db.query(Question).filter(Question.id == uuid_lib.UUID(data.question_id)).first()
+        question = db.query(Question).filter(Question.id == data.question_id).first()
         
         if not question:
             raise HTTPException(status_code=404, detail="Question not found")
         
         # Get video for context
-        video = db.query(Video).filter(Video.id == uuid_lib.UUID(data.video_id)).first()
+        video = db.query(Video).filter(Video.id == data.video_id).first()
         
         if not video:
             raise HTTPException(status_code=404, detail="Video not found")
@@ -98,13 +99,13 @@ async def submit_audio_answer(
             raise HTTPException(status_code=404, detail="User not found")
         
         # Validate question exists
-        question = db.query(Question).filter(Question.id == uuid_lib.UUID(question_id)).first()
+        question = db.query(Question).filter(Question.id == question_id).first()
         
         if not question:
             raise HTTPException(status_code=404, detail="Question not found")
         
         # Validate video exists
-        video = db.query(Video).filter(Video.id == uuid_lib.UUID(video_id)).first()
+        video = db.query(Video).filter(Video.id == video_id).first()
         
         if not video:
             raise HTTPException(status_code=404, detail="Video not found")
@@ -114,23 +115,27 @@ async def submit_audio_answer(
         
         # Generate unique filename
         file_extension = file.filename.split('.')[-1] if '.' in file.filename else 'mp3'
-        file_path = f"{user.id}/{video.id}_{uuid_lib.uuid4()}.{file_extension}"
+        filename = f"{video.id}_{uuid_lib.uuid4()}.{file_extension}"
         
-        logger.info(f"Uploading audio file: {file_path}")
+        # Create user directory if it doesn't exist
+        user_audio_dir = os.path.join(AUDIO_UPLOAD_DIR, str(user.id))
+        os.makedirs(user_audio_dir, exist_ok=True)
         
-        # Upload to Supabase Storage
+        # Full path to save the file
+        file_path = os.path.join(user_audio_dir, filename)
+        
+        logger.info(f"Saving audio file: {file_path}")
+        
+        # Save file locally
         try:
-            storage_response = supabase_storage.storage \
-                .from_("e2e-audio") \
-                .upload(file_path, contents, {"content-type": file.content_type or "audio/mpeg"})
+            with open(file_path, "wb") as f:
+                f.write(contents)
         except Exception as storage_error:
-            logger.error(f"Storage upload error: {str(storage_error)}")
-            raise HTTPException(status_code=500, detail=f"Failed to upload audio: {str(storage_error)}")
+            logger.error(f"File save error: {str(storage_error)}")
+            raise HTTPException(status_code=500, detail=f"Failed to save audio: {str(storage_error)}")
         
-        # Get public URL
-        audio_url = supabase_storage.storage \
-            .from_("e2e-audio") \
-            .get_public_url(file_path)
+        # Generate relative URL for accessing the file
+        audio_url = f"/uploads/audio/{user.id}/{filename}"
         
         # Save answer metadata to database
         answer = Answer(

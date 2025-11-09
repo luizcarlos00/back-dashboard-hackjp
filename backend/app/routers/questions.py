@@ -1,11 +1,10 @@
 from fastapi import APIRouter, HTTPException, Query, Depends
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.db_models import User, Video, Question, E2EPrompt
+from app.db_models import User, Video, Question
 from app.models import QuestionResponse
 from datetime import datetime
 import logging
-import uuid
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -25,7 +24,7 @@ async def get_question(
             raise HTTPException(status_code=404, detail="User not found. Please create user first via POST /user")
         
         # Get video details
-        video = db.query(Video).filter(Video.id == uuid.UUID(video_id)).first()
+        video = db.query(Video).filter(Video.id == video_id).first()
         
         if not video:
             raise HTTPException(status_code=404, detail="Video not found")
@@ -62,19 +61,13 @@ async def get_question(
 @router.get("/prompts")
 async def get_prompts(db: Session = Depends(get_db)):
     """Get list of available E2E prompts (for reference)."""
-    try:
-        prompts = db.query(E2EPrompt).all()
-        
-        return {
-            "prompts": [
-                {
-                    "id": str(p.id),
-                    "text": p.text,
-                    "category": p.category,
-                    "created_at": p.created_at
-                }
-                for p in prompts
-            ]
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error fetching prompts: {str(e)}")
+    # E2E prompts are currently generated dynamically based on video content
+    return {
+        "prompts": [
+            {
+                "id": "1",
+                "text": "Baseado no vídeo que você assistiu, explique o que você aprendeu e como pode aplicar esse conhecimento.",
+                "category": "general"
+            }
+        ]
+    }

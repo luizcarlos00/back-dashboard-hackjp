@@ -91,8 +91,7 @@ async def get_next_video(
         query = db.query(Video).filter(Video.is_active == True)
         
         if watched_ids:
-            watched_uuids = [uuid.UUID(vid) for vid in watched_ids]
-            query = query.filter(~Video.id.in_(watched_uuids))
+            query = query.filter(~Video.id.in_(watched_ids))
         
         video = query.first()
         
@@ -134,7 +133,7 @@ async def get_next_video(
 async def get_video(video_id: str, db: Session = Depends(get_db)):
     """Get specific video by ID."""
     try:
-        video = db.query(Video).filter(Video.id == uuid.UUID(video_id)).first()
+        video = db.query(Video).filter(Video.id == video_id).first()
         
         if not video:
             raise HTTPException(status_code=404, detail="Video not found")

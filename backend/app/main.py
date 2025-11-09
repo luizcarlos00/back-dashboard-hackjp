@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from app.routers import users, videos, progress, questions, answers, dashboard, contents
+from app.config import UPLOAD_DIR, AUDIO_UPLOAD_DIR
 import logging
+import os
 
 # Configure logging
 logging.basicConfig(
@@ -28,6 +31,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Create upload directories if they don't exist
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+os.makedirs(AUDIO_UPLOAD_DIR, exist_ok=True)
+
+# Mount static files for serving uploaded audio files
+app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
 # Health check endpoint
 @app.get("/health")

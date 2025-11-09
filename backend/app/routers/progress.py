@@ -4,7 +4,6 @@ from app.database import get_db
 from app.db_models import User, Video, UserProgress
 from app.models import ProgressRequest, ProgressResponse
 from datetime import datetime
-import uuid
 
 router = APIRouter()
 
@@ -21,7 +20,7 @@ async def record_progress(data: ProgressRequest, db: Session = Depends(get_db)):
         videos_until_e2e = user.videos_until_e2e
         
         # Check if video exists
-        video = db.query(Video).filter(Video.id == uuid.UUID(data.video_id)).first()
+        video = db.query(Video).filter(Video.id == data.video_id).first()
         
         if not video:
             raise HTTPException(status_code=404, detail="Video not found")

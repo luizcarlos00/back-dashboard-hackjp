@@ -5,7 +5,8 @@ Backend API for FeedBreak - Educational platform using short videos with persona
 ## 🏗️ Architecture
 
 - **FastAPI** - Modern Python web framework
-- **Supabase** - PostgreSQL database + file storage
+- **SQLite** - Local database for data persistence
+- **Local File Storage** - Audio files stored in the local file system
 - **LangChain + GPT-4o-mini** - AI-powered answer analysis
 
 ## 📋 Features
@@ -50,41 +51,40 @@ Backend API for FeedBreak - Educational platform using short videos with persona
 ### Prerequisites
 
 - Python 3.11+
-- Supabase account
 - OpenAI API key
 
 ### 1. Setup Environment
 
-Create a `.env` file in the `backend/` directory:
+Create a `.env` file in the `backend/` directory (see `env.example` for reference):
 
 ```bash
-# Supabase Configuration
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_KEY=your_supabase_anon_key_here
-
 # OpenAI Configuration
 OPENAI_API_KEY=sk-your_openai_api_key_here
 
-# Server Configuration
+# Server Configuration (optional)
 PORT=8000
+
+# Database URL (optional - defaults to sqlite:///./feedbreak.db)
+DATABASE_URL=sqlite:///./feedbreak.db
 ```
 
-### 2. Setup Supabase Database
-
-1. Go to your Supabase project
-2. Open SQL Editor
-3. Run the schema from `app/database/schema.sql`
-4. Create storage bucket:
-   - Go to Storage
-   - Create bucket named `e2e-audio`
-   - Set to private
-   - Configure policies as needed
-
-### 3. Install Dependencies
+### 2. Install Dependencies
 
 ```bash
 cd backend
 pip install -r requirements.txt
+```
+
+### 3. Initialize Database
+
+The database will be created automatically on first run, or you can use Alembic migrations:
+
+```bash
+# Create initial migration (if needed)
+alembic revision --autogenerate -m "Initial migration"
+
+# Run migrations
+alembic upgrade head
 ```
 
 ### 4. Run Locally
@@ -104,16 +104,17 @@ API will be available at:
 
 ## 📊 Database Schema
 
+The application uses **SQLite** for local data persistence. The database file (`feedbreak.db`) is created automatically in the backend directory.
+
 ### Main Tables
 
-1. **users** - User profiles with device_id, nome, idade, interesses, nivel_educacional
-2. **videos** - Educational videos with metadata and expected_concepts
-3. **user_progress** - Track which videos each user has watched
-4. **questions** - E2E questions for user evaluation
-5. **answers** - User responses with AI evaluation
-6. **e2e_prompts** - Base prompts for question generation
+1. **users** - User profiles with nome, email, idade, nivel_educacional
+2. **contents** - Content/subject metadata with keywords and difficulty levels
+3. **videos** - Educational videos linked to contents
+4. **questions** - E2E questions related to contents
+5. **answers** - User responses with AI evaluation and scores
 
-See `app/database/schema.sql` for complete schema.
+The database is managed through SQLAlchemy ORM with Alembic migrations. Models are defined in `app/db_models.py`.
 
 ## 🧪 Testing
 
@@ -176,18 +177,23 @@ backend/
 ├── app/
 │   ├── main.py                    # FastAPI app entry point
 │   ├── config.py                  # Environment configuration
+│   ├── database.py                # Database connection
+│   ├── db_models.py               # SQLAlchemy models
 │   ├── models.py                  # Pydantic models
 │   ├── routers/
 │   │   ├── users.py               # User endpoints
+│   │   ├── contents.py            # Content management
 │   │   ├── videos.py              # Video endpoints
 │   │   ├── progress.py            # Progress tracking
 │   │   ├── questions.py           # E2E questions
 │   │   ├── answers.py             # Answer submission
 │   │   └── dashboard.py           # Dashboard stats
-│   ├── services/
-│   │   └── langchain_analyzer.py  # AI answer analysis
-│   └── database/
-│       └── schema.sql              # Database schema
+│   └── services/
+│       └── langchain_analyzer.py  # AI answer analysis
+├── alembic/                       # Database migrations
+├── uploads/
+│   └── audio/                     # Uploaded audio files
+├── feedbreak.db                   # SQLite database (auto-generated)
 ├── requirements.txt
 └── README.md
 ```
@@ -223,8 +229,10 @@ System tracks:
 - Set specific CORS origins (not "*")
 - Add rate limiting
 - Implement proper authentication
-- Secure Supabase RLS policies
 - Use environment-specific API keys
+- Consider using PostgreSQL or other production databases instead of SQLite
+- Implement proper file upload validation and virus scanning
+- Set appropriate file size limits
 
 ## 📞 Support
 
@@ -244,5 +252,5 @@ Future enhancements:
 
 ---
 
-**Built for Hackathon** | FastAPI + Supabase + LangChain
+**Built for Hackathon** | FastAPI + SQLite + LangChain
 

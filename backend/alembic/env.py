@@ -19,18 +19,8 @@ load_dotenv()
 config = context.config
 
 # Override sqlalchemy.url with environment variable
-DATABASE_URL = os.getenv("DATABASE_URL")
-if not DATABASE_URL:
-    SUPABASE_URL = os.getenv("SUPABASE_URL", "")
-    SUPABASE_DB_PASSWORD = os.getenv("SUPABASE_DB_PASSWORD", "")
-    
-    if SUPABASE_URL and SUPABASE_DB_PASSWORD:
-        host = SUPABASE_URL.replace("https://", "").replace("http://", "")
-        db_host = f"db.{host}"
-        DATABASE_URL = f"postgresql://postgres:{SUPABASE_DB_PASSWORD}@{db_host}:5432/postgres"
-
-if DATABASE_URL:
-    config.set_main_option("sqlalchemy.url", DATABASE_URL)
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./feedbreak.db")
+config.set_main_option("sqlalchemy.url", DATABASE_URL)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -83,7 +73,6 @@ def run_migrations_online() -> None:
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",
-        poolclass=pool.NullPool,
     )
 
     with connectable.connect() as connection:
