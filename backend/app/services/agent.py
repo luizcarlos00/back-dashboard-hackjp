@@ -37,28 +37,43 @@ def _make_llm(api_key: Optional[str] = None, model_name: str = "gemini-2.5-flash
 
 
 PROMPT_TEMPLATE = """
-Você é um especialista em design instrucional. A partir do tópico, do nível de dificuldade e do número de perguntas,
-gere um array JSON de perguntas educacionais. Cada objeto de pergunta deve conter os campos:
+### Papel
+Você é um Assistente de IA especialista em Geração de Conteúdo Educacional e Análise de Contexto.
 
-Entradas : 
+### Tarefa
+Sua tarefa é gerar UMA (1) única pergunta educacional baseada estritamente no contexto fornecido. Além da pergunta, você deve analisar o contexto para extrair o conceito principal que está sendo avaliado.
 
-id_question : {id_question : str}
-id_usuario : {id_usuario : str}
-question: o texto da pergunta (string)
+A saída deve ser um único objeto JSON válido.
 
+### Informações de Entrada
+1.  **Nível de Escolaridade Alvo:** `{nivel_de_escolaridade}`
+2.  **Contexto (RAG):** `{rag_context}`
 
+### Regras Estritas
+1.  **Adesão Total ao Contexto:** A pergunta deve ser formulada usando *exclusivamente* informações presentes no `{rag_context}`. É proibido usar qualquer conhecimento externo.
+2.  **Adequação ao Nível:** A linguagem, o vocabulário e a complexidade da pergunta devem ser perfeitamente adequados ao `{nivel_de_escolaridade}` fornecido.
+3.  **Concisão:** A pergunta deve ser curta, clara e direta.
+4.  **Análise de Conceito:** Você deve identificar o conceito ou fato principal do `{rag_context}` que a pergunta está avaliando.
+5.  **Formato JSON Rigoroso:** A saída deve ser *apenas* um objeto JSON válido, sem nenhum outro texto, comentários ou saudações (nem mesmo ```json ... ```).
 
-Saída: apenas JSON válido (um array JSON). Não adicione nenhum comentário extra.
+### Formato de Saída (JSON)
+Responda *apenas* com um objeto JSON válido, seguindo exatamente esta estrutura:
 
+{
+  "pergunta_gerada": "O texto da pergunta que você criou.",
+  "nivel_alvo": "{nivel_de_escolaridade}",
+  "conceito_avaliado": "O conceito ou fato principal do contexto que a pergunta está testando."
+}
 
-aprovação se a soma notas for maior que 0.6: {aprovação: bool}
-Nota da respota de 0 a 1 : {nota}
-Tópico: {topic}
-Dificuldade: {difficulty}
-Número de perguntas: {num_questions}
-Contexto adicional (RAG):{rag_context}
-Conceitos faltandtes : {concepts_missing}
-Contceito indentificado : {concepts_identified}
+### Exemplo de Execução
+(Se o contexto fosse "A fotossíntese é o processo pelo qual as plantas usam a luz solar, água e dióxido de carbono para criar seu próprio alimento (glicose)." e o nível "Ensino Médio")
+
+**Saída Esperada:**
+{
+  "pergunta_gerada": "Quais são os três componentes principais que as plantas utilizam durante a fotossíntese, segundo o texto?",
+  "nivel_alvo": "Ensino Médio",
+  "conceito_avaliado": "Componentes do processo de fotossíntese"
+}
 
 """
 
@@ -72,6 +87,8 @@ def generate_educational_questions(
 	llm_callable: Optional[Any] = None,
 	rag_path: Optional[str] = None,
 	rag_text: Optional[str] = None,
+	device_id: Optional[str] = None,
+	db: Optional[Any] = None,
 ) -> List[Dict[str, Any]]:
 	"""Gera perguntas educacionais usando LangChain.
 
@@ -81,6 +98,8 @@ def generate_educational_questions(
 		difficulty: Nível de dificuldade (easy/medium/hard).
 		api_key: Chave OpenAI opcional (se não fornecida, carregada do env/.env).
 		model_name: Nome do modelo OpenAI a utilizar.
+		device_id: ID do dispositivo do usuário para buscar nivel_educacional.
+		db: Sessão do banco de dados SQLAlchemy.
 
 	Retorna:
 		Uma lista de dicionários representando as perguntas, parseadas a partir do JSON retornado pelo modelo.
@@ -91,6 +110,18 @@ def generate_educational_questions(
 
 	if not api_key and not _get_openai_api_key():
 		raise RuntimeError("Chave da API não fornecida e não encontrada nas variáveis de ambiente.")
+	
+	# Buscar nivel_educacional do usuário se device_id e db foram fornecidos
+	nivel_de_escolaridade = "medio"  # valor padrão
+	if device_id and db:
+		try:
+			from app.db_models import User
+			user = db.query(User).filter(User.device_id == device_id).first()
+			if user and user.nivel_educacional:
+				nivel_de_escolaridade = user.nivel_educacional
+		except Exception:
+			# Se houver erro ao buscar, usa o valor padrão
+			pass
 
 	# Allow injection of a simple callable for testing to avoid hitting the API
 	prompt = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
@@ -127,14 +158,28 @@ def generate_educational_questions(
 	if llm_callable is not None:
 		# llm_callable should accept a single formatted prompt string and return a text response
 		# ChatPromptTemplate.format can produce structured messages; for simple testing we format the raw template string
-		formatted = PROMPT_TEMPLATE.format(topic=topic, difficulty=difficulty, num_questions=num_questions, format=format, rag_context=rag_context)
+		formatted = PROMPT_TEMPLATE.format(
+			topic=topic,
+			difficulty=difficulty,
+			num_questions=num_questions,
+			format=format,
+			rag_context=rag_context,
+			nivel_de_escolaridade=nivel_de_escolaridade
+		)
 		response = llm_callable(formatted)
 	else:
 		llm = _make_llm(api_key=api_key, model_name=model_name)
 		# Use Runnable-style composition: prompt | llm
 		chain = prompt | llm
 		# invoke synchronously
-		response = chain.invoke({"topic": topic, "difficulty": difficulty, "num_questions": num_questions, "format": format, "rag_context": rag_context})
+		response = chain.invoke({
+			"topic": topic,
+			"difficulty": difficulty,
+			"num_questions": num_questions,
+			"format": format,
+			"rag_context": rag_context,
+			"nivel_de_escolaridade": nivel_de_escolaridade
+		})
 		if not isinstance(response, str):
 			response = str(response)
 

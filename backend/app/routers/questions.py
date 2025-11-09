@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.db_models import User, Video, Question
 from app.models import QuestionResponse
+from app.services.agent import generate_educational_questions
 from datetime import datetime
 import logging
 
@@ -29,8 +30,25 @@ async def get_question(
         if not video:
             raise HTTPException(status_code=404, detail="Video not found")
         
-        # Generate a generic question based on video
-        question_text = f"Baseado no vídeo '{video.title}', explique o que você aprendeu e como pode aplicar esse conhecimento."
+        # Generate personalized question using agent with user's educational level from database
+        try:
+            questions = generate_educational_questions(
+                topic=video.title or "conteúdo do vídeo",
+                num_questions=1,
+                device_id=device_id,
+                db=db,
+                rag_path="app/data_rag/bncc.txt"  # Path to educational context
+            )
+            
+            if questions and len(questions) > 0:
+                question_data = questions[0]
+                question_text = question_data.get("pergunta_gerada", 
+                    f"Baseado no vídeo '{video.title}', explique o que você aprendeu e como pode aplicar esse conhecimento.")
+            else:
+                question_text = f"Baseado no vídeo '{video.title}', explique o que você aprendeu e como pode aplicar esse conhecimento."
+        except Exception as e:
+            logger.warning(f"Error generating AI question, using fallback: {str(e)}")
+            question_text = f"Baseado no vídeo '{video.title}', explique o que você aprendeu e como pode aplicar esse conhecimento."
         
         # Save question to database
         question = Question(
