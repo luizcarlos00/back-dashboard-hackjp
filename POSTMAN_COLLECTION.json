@@ -1,0 +1,199 @@
+{
+  "info": {
+    "name": "FeedBreak API",
+    "description": "Coleção completa de endpoints da API FeedBreak",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "device_id",
+      "value": "TEST_APP_001",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health & Info",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "API Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": ["{{base_url}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create/Update User",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"device_id\": \"{{device_id}}\",\n  \"nome\": \"João Silva\",\n  \"idade\": 15,\n  \"interesses\": [\"matematica\", \"programacao\"],\n  \"nivel_educacional\": \"medio\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/users",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "users"]
+            }
+          }
+        },
+        {
+          "name": "Get User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/users/{{device_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "users", "{{device_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Progress",
+      "item": [
+        {
+          "name": "Next Video (⭐ MAIN ENDPOINT)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/progress/next-video?device_id={{device_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "progress", "next-video"],
+              "query": [{"key": "device_id", "value": "{{device_id}}"}]
+            }
+          }
+        },
+        {
+          "name": "Mark Video Watched",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"device_id\": \"{{device_id}}\",\n  \"video_id\": \"VIDEO_UUID_HERE\",\n  \"watched\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/progress/watch",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "progress", "watch"]
+            }
+          }
+        },
+        {
+          "name": "User Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/progress/stats/{{device_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "progress", "stats", "{{device_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Responses",
+      "item": [
+        {
+          "name": "Answer Activity (Text)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"device_id\": \"{{device_id}}\",\n  \"activity_id\": \"ACTIVITY_UUID_HERE\",\n  \"answer\": \"Minha resposta em texto...\",\n  \"grau_aprendizagem\": 0.85,\n  \"responded\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/responses",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "responses"]
+            }
+          }
+        },
+        {
+          "name": "Answer Activity (Audio)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {"key": "device_id", "value": "{{device_id}}", "type": "text"},
+                {"key": "activity_id", "value": "ACTIVITY_UUID_HERE", "type": "text"},
+                {"key": "audio", "type": "file", "src": ""}
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/responses/audio",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "responses", "audio"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Contents",
+      "item": [
+        {
+          "name": "List Contents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/contents",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "contents"]
+            }
+          }
+        },
+        {
+          "name": "Get Content",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/contents/CONTENT_UUID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "contents", "CONTENT_UUID_HERE"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+

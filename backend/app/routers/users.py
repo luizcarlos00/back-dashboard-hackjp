@@ -35,7 +35,6 @@ async def create_or_update_user(user_data: UserCreate, db: Session = Depends(get
                 idade=existing_user.idade,
                 interesses=existing_user.interesses,
                 nivel_educacional=existing_user.nivel_educacional,
-                videos_until_e2e=existing_user.videos_until_e2e,
                 created_at=existing_user.created_at,
                 last_active_at=existing_user.last_active_at
             )
@@ -61,7 +60,6 @@ async def create_or_update_user(user_data: UserCreate, db: Session = Depends(get
                 idade=new_user.idade,
                 interesses=new_user.interesses,
                 nivel_educacional=new_user.nivel_educacional,
-                videos_until_e2e=new_user.videos_until_e2e,
                 created_at=new_user.created_at,
                 last_active_at=new_user.last_active_at
             )
@@ -88,7 +86,6 @@ async def get_user(device_id: str, db: Session = Depends(get_db)):
             idade=user.idade,
             interesses=user.interesses,
             nivel_educacional=user.nivel_educacional,
-            videos_until_e2e=user.videos_until_e2e,
             created_at=user.created_at,
             last_active_at=user.last_active_at
         )
