@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: feedbreak-backend
+    ports:
+      - "8002:8000"
+    volumes:
+      # Mount code for hot reload
+      - ./backend:/app
+      # Persist database
+      - ./backend/feedbreak.db:/app/feedbreak.db
+      # Persist uploads
+      - ./backend/uploads:/app/uploads
+    environment:
+      - DATABASE_URL=sqlite:///./feedbreak.db
+      - PORT=8000
+    env_file:
+      - ./.env
+    restart: unless-stopped
+    networks:
+      - feedbreak-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  feedbreak-network:
+    driver: bridge
+
+volumes:
+  feedbreak-data:
+
