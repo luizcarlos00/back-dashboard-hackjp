@@ -19,44 +19,61 @@ def get_video_info(video_id: str) -> Optional[Dict]:
         Dict com url, title, thumbnail_url, duration ou None se falhar
     """
     try:
-        url = f"https://www.youtube.com/watch?v={video_id}"
+        # Tentar como vídeo normal primeiro, depois como Shorts
+        urls_to_try = [
+            f"https://www.youtube.com/watch?v={video_id}",
+            f"https://www.youtube.com/shorts/{video_id}"
+        ]
         
-        ydl_opts = {
-            'quiet': True,
-            'no_warnings': True,
-            'extract_flat': False,
-            'format': 'best',  # Pega o melhor formato disponível
+        for url in urls_to_try:
+            try:
+                ydl_opts = {
+                    'quiet': True,
+                    'no_warnings': True,
+                    'extract_flat': False,
+                    'format': 'best/bestvideo+bestaudio',
+                }
+                
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    info = ydl.extract_info(url, download=False)
+                    
+                    if info:
+                        # Construir URL do YouTube (para exibir no app)
+                        youtube_url = f"https://www.youtube.com/watch?v={video_id}"
+                        if 'shorts' in url:
+                            youtube_url = f"https://www.youtube.com/shorts/{video_id}"
+                        
+                        return {
+                            'url': youtube_url,  # URL do YouTube para exibir
+                            'title': info.get('title'),
+                            'thumbnail_url': info.get('thumbnail'),
+                            'duration': info.get('duration'),
+                            'description': info.get('description'),
+                            'uploader': info.get('uploader'),
+                            'view_count': info.get('view_count'),
+                        }
+            except Exception as e:
+                logger.debug(f"Tentativa com {url} falhou: {str(e)}")
+                continue
+        
+        # Se ambas falharam, retornar URL básica do YouTube
+        logger.warning(f"Não foi possível extrair info detalhada do vídeo {video_id}, usando URL padrão")
+        return {
+            'url': f"https://www.youtube.com/watch?v={video_id}",
+            'title': None,
+            'thumbnail_url': f"https://img.youtube.com/vi/{video_id}/maxresdefault.jpg",
+            'duration': None,
         }
-        
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(url, download=False)
-            
-            if not info:
-                logger.error(f"Não foi possível extrair info do vídeo {video_id}")
-                return None
-            
-            # Extrair a URL direta do vídeo
-            # yt-dlp retorna a URL no campo 'url' ou 'formats'
-            video_url = info.get('url')
-            if not video_url and 'formats' in info:
-                # Pega a primeira URL disponível
-                formats = info.get('formats', [])
-                if formats:
-                    video_url = formats[0].get('url')
-            
-            return {
-                'url': video_url or url,  # Fallback para URL do YouTube
-                'title': info.get('title'),
-                'thumbnail_url': info.get('thumbnail'),
-                'duration': info.get('duration'),  # Em segundos
-                'description': info.get('description'),
-                'uploader': info.get('uploader'),
-                'view_count': info.get('view_count'),
-            }
     
     except Exception as e:
         logger.error(f"Erro ao extrair info do vídeo {video_id}: {str(e)}")
-        return None
+        # Fallback: retornar URL básica
+        return {
+            'url': f"https://www.youtube.com/watch?v={video_id}",
+            'title': None,
+            'thumbnail_url': f"https://img.youtube.com/vi/{video_id}/maxresdefault.jpg",
+            'duration': None,
+        }
 
 
 def extract_video_id(url_or_id: str) -> str:
