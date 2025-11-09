@@ -157,7 +157,7 @@ def get_content(content_id: uuid.UUID, db: Session = Depends(get_db)):
     """
     Busca um conteúdo específico por ID com seus vídeos e questões
     """
-    content = db.query(Content).filter(Content.id == content_id).first()
+    content = db.query(Content).filter(Content.id == str(content_id)).first()
     
     if not content:
         raise HTTPException(
@@ -167,13 +167,13 @@ def get_content(content_id: uuid.UUID, db: Session = Depends(get_db)):
     
     # Buscar vídeos relacionados
     videos = db.query(Video).filter(
-        Video.content_id == content_id,
+        Video.content_id == str(content_id),
         Video.is_active == True
     ).order_by(Video.order_index).all()
     
     # Buscar questões relacionadas
     questions = db.query(Question).filter(
-        Question.content_id == content_id,
+        Question.content_id == str(content_id),
         Question.is_active == True
     ).order_by(Question.order_index).all()
     
@@ -220,7 +220,7 @@ def update_content(
     """
     Atualiza um conteúdo existente
     """
-    content = db.query(Content).filter(Content.id == content_id).first()
+    content = db.query(Content).filter(Content.id == str(content_id)).first()
     
     if not content:
         raise HTTPException(
@@ -256,7 +256,7 @@ def delete_content(content_id: uuid.UUID, db: Session = Depends(get_db)):
     """
     Deleta um conteúdo (soft delete - marca como inativo)
     """
-    content = db.query(Content).filter(Content.id == content_id).first()
+    content = db.query(Content).filter(Content.id == str(content_id)).first()
     
     if not content:
         raise HTTPException(
@@ -283,7 +283,7 @@ def delete_content_permanent(content_id: uuid.UUID, db: Session = Depends(get_db
     Deleta permanentemente um conteúdo e todos os seus vídeos e questões
     ⚠️ ATENÇÃO: Esta operação é irreversível!
     """
-    content = db.query(Content).filter(Content.id == content_id).first()
+    content = db.query(Content).filter(Content.id == str(content_id)).first()
     
     if not content:
         raise HTTPException(
@@ -309,7 +309,7 @@ def get_content_stats(content_id: uuid.UUID, db: Session = Depends(get_db)):
     """
     Retorna estatísticas sobre um conteúdo
     """
-    content = db.query(Content).filter(Content.id == content_id).first()
+    content = db.query(Content).filter(Content.id == str(content_id)).first()
     
     if not content:
         raise HTTPException(
@@ -318,18 +318,18 @@ def get_content_stats(content_id: uuid.UUID, db: Session = Depends(get_db)):
         )
     
     # Contar vídeos
-    video_count = db.query(func.count(Video.id)).filter(Video.content_id == content_id).scalar()
+    video_count = db.query(func.count(Video.id)).filter(Video.content_id == str(content_id)).scalar()
     
     # Contar questões por tipo
     questions_by_type = db.query(
         Question.question_type,
         func.count(Question.id)
     ).filter(
-        Question.content_id == content_id
+        Question.content_id == str(content_id)
     ).group_by(Question.question_type).all()
     
     # Total de visualizações dos vídeos
-    total_views = db.query(func.sum(Video.view_count)).filter(Video.content_id == content_id).scalar() or 0
+    total_views = db.query(func.sum(Video.view_count)).filter(Video.content_id == str(content_id)).scalar() or 0
     
     return {
         "content_id": str(content_id),

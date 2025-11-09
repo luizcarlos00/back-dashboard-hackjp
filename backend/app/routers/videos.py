@@ -6,9 +6,47 @@ from app.db_models import Video, User, UserProgress
 from app.models import VideoResponse, NextVideoResponse
 from typing import Optional
 from datetime import datetime
-import uuid
+import yt_dlp
 
 router = APIRouter()
+
+
+@router.get("/youtube-info")
+async def get_youtube_video_info(video_id: str = Query(..., description="YouTube video ID")):
+    """
+    Extrai informações de um vídeo do YouTube usando yt-dlp (sem baixar)
+    """
+    try:
+        # Configurar yt-dlp
+        ydl_opts = {
+            'format': 'best[ext=mp4]',  # Melhor qualidade MP4
+            'quiet': True,
+            'no_warnings': True
+        }
+        
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            # Extrair informações SEM baixar
+            info = ydl.extract_info(
+                f'https://youtube.com/watch?v={video_id}',
+                download=False
+            )
+            
+            # Pegar URL direta do vídeo
+            video_url = info.get('url')
+            
+            return {
+                'url': video_url,
+                'title': info.get('title'),
+                'duration': info.get('duration'),
+                'thumbnail': info.get('thumbnail'),
+                'description': info.get('description', '')[:500]  # Limitando descrição
+            }
+    except Exception as e:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Erro ao extrair informações do vídeo: {str(e)}"
+        )
+
 
 @router.get("", response_model=dict)
 async def list_videos(

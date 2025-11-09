@@ -37,9 +37,11 @@ class Content(Base):
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     title = Column(String(255), nullable=False, index=True)
     description = Column(Text, nullable=True)
-    matter = Column(String(100), nullable=True, index=True)
+    category = Column(String(100), nullable=True, index=True)
     difficulty_level = Column(Integer, default=1, index=True)  # 1-5
     keywords = Column(JSON, default=list)
+    is_active = Column(Boolean, default=True, index=True)
+    order_index = Column(Integer, default=0)
     created_at = Column(TIMESTAMP, server_default=func.now())
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
     
@@ -72,6 +74,7 @@ class Video(Base):
     # Metadados do vídeo
     view_count = Column(Integer, default=0)
     is_active = Column(Boolean, default=True, index=True)
+    order_index = Column(Integer, default=0)
     created_at = Column(TIMESTAMP, server_default=func.now())
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
     
@@ -91,12 +94,14 @@ class Question(Base):
     content_id = Column(String(36), ForeignKey("contents.id", ondelete="CASCADE"), nullable=True, index=True)
     
     question_text = Column(Text, nullable=False)
- 
+    question_type = Column(String(50), default="open", index=True)  # open, multiple_choice, etc
+    points = Column(Integer, default=10)
     expected_keywords = Column(JSON, default=list)
     
     difficulty_level = Column(Integer, default=1, index=True)  # 1-5
     
     is_active = Column(Boolean, default=True, index=True)
+    order_index = Column(Integer, default=0)
     
     created_at = Column(TIMESTAMP, server_default=func.now())
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())

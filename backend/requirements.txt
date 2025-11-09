@@ -9,6 +9,9 @@ openai==1.51.0
 httpx==0.26.0
 
 # SQLAlchemy ORM (SQLite is built-in with Python)
-sqlalchemy==2.0.23
-alembic==1.12.1
+sqlalchemy==2.0.36
+alembic==1.13.0
+
+# YouTube video extraction
+yt-dlp==2024.10.7
 
