@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Optional
 
 from dotenv import load_dotenv
 from langchain.chains import LLMChain
-from langchain_openai import ChatOpenAI
+from app.services.llm_provider import make_chat_llm
 from langchain.prompts import ChatPromptTemplate
 
 
@@ -14,46 +14,52 @@ load_dotenv()
 
 
 def _get_openai_api_key() -> Optional[str]:
-	# Try common env var names; `.env` in repo uses OpenAI_API_KEY
-	return os.getenv("OpenAI_API_KEY") or os.getenv("OPENAI_API_KEY")
+	# Try common env var names for both Gemini and OpenAI
+	return (
+		os.getenv("GEMINI_API_KEY")
+		or os.getenv("OPENAI_API_KEY")
+	)
 
 
-def _make_llm(api_key: Optional[str] = None, model_name: str = "gpt-3.5-turbo", temperature: float = 0.3) -> ChatOpenAI:
+def _make_llm(api_key: Optional[str] = None, model_name: str = "gemini-2.5-flash", temperature: float = 0.3):
+	"""Create a LangChain-compatible chat LLM instance.
+
+	This delegates to `app.services.llm_provider.make_chat_llm`, which will try to
+	instantiate a Gemini model when a Gemini key is present, otherwise fall back to OpenAI.
+	"""
+	# Let the provider handle selection and errors
+	llm = make_chat_llm(model=model_name, temperature=temperature, api_key=api_key)
+	# Ensure an OPENAI_API_KEY is present in the environment for compatibility with other code
 	key = api_key or _get_openai_api_key()
-	if not key:
-		raise RuntimeError(
-			"Chave OpenAI não encontrada. Por favor defina OPENAI_API_KEY no ambiente ou no arquivo .env."
-		)
-	# Ensure common env var is set so downstream code that checks the env will find it
-	if "OPENAI_API_KEY" not in os.environ:
+	if key and "OPENAI_API_KEY" not in os.environ:
 		os.environ["OPENAI_API_KEY"] = key
-
-	# Use langchain_openai.ChatOpenAI (compatível com openai>=1.0.0)
-	# langchain_openai expects: model, temperature, api_key
-	return ChatOpenAI(model=model_name, temperature=temperature, api_key=key)
+	return llm
 
 
 PROMPT_TEMPLATE = """
 Você é um especialista em design instrucional. A partir do tópico, do nível de dificuldade e do número de perguntas,
 gere um array JSON de perguntas educacionais. Cada objeto de pergunta deve conter os campos:
 
-- question: o texto da pergunta (string)
-- answer: a resposta correta (string)
-- explanation: uma explicação curta (string)
-- difficulty: o nível de dificuldade fornecido
-- topic: o tópico fornecido
+Entradas : 
 
-Se o `format` for "multiple_choice", inclua também:
-- choices: um array com 3-5 opções plausíveis (strings), onde uma delas é igual a `answer`.
+id_question : {id_question : str}
+id_usuario : {id_usuario : str}
+question: o texto da pergunta (string)
+
+
 
 Saída: apenas JSON válido (um array JSON). Não adicione nenhum comentário extra.
 
+
+aprovação se a soma notas for maior que 0.6: {aprovação: bool}
+Nota da respota de 0 a 1 : {nota}
 Tópico: {topic}
 Dificuldade: {difficulty}
 Número de perguntas: {num_questions}
-Formato: {format}
-Contexto adicional (RAG):
-{rag_context}
+Contexto adicional (RAG):{rag_context}
+Conceitos faltandtes : {concepts_missing}
+Contceito indentificado : {concepts_identified}
+
 """
 
 
@@ -61,20 +67,18 @@ def generate_educational_questions(
 	topic: str,
 	num_questions: int = 5,
 	difficulty: str = "medium",
-	format: str = "multiple_choice",
 	api_key: Optional[str] = None,
-	model_name: str = "gpt-3.5-turbo",
+	model_name: str = "gemini-2.5-flash",
 	llm_callable: Optional[Any] = None,
 	rag_path: Optional[str] = None,
 	rag_text: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
-	"""Gera perguntas educacionais usando LangChain + OpenAI.
+	"""Gera perguntas educacionais usando LangChain.
 
 	Args:
 		topic: Tópico para as perguntas (ex.: "fotossíntese").
 		num_questions: Quantidade de perguntas a gerar.
 		difficulty: Nível de dificuldade (easy/medium/hard).
-		format: "multiple_choice" ou "short_answer".
 		api_key: Chave OpenAI opcional (se não fornecida, carregada do env/.env).
 		model_name: Nome do modelo OpenAI a utilizar.
 
@@ -85,8 +89,8 @@ def generate_educational_questions(
 		RuntimeError: quando a chave da API não estiver presente.
 	"""
 
-	if format not in ("multiple_choice", "short_answer"):
-		raise ValueError("format deve ser 'multiple_choice' ou 'short_answer'")
+	if not api_key and not _get_openai_api_key():
+		raise RuntimeError("Chave da API não fornecida e não encontrada nas variáveis de ambiente.")
 
 	# Allow injection of a simple callable for testing to avoid hitting the API
 	prompt = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
@@ -161,7 +165,7 @@ if __name__ == "__main__":
 			topic="fundamentos de fotossíntese",
 			num_questions=3,
 			difficulty="easy",
-			format="multiple_choice",
+			model_name="gemini-2.5-flash",
 		)
 		print(json.dumps(sample, ensure_ascii=False, indent=2))
 	except Exception as e:
