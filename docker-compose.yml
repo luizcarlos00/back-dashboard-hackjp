@@ -1,5 +1,4 @@
 services:
-  # Backend API
   backend:
     build:
       context: ./backend
@@ -8,17 +7,14 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      # Mount code for hot reload
       - ./backend:/app
-      # Persist database
-      - ./backend/feedbreak.db:/app/feedbreak.db
-      # Persist uploads
+      - db_data:/app/db
       - ./backend/uploads:/app/uploads
     environment:
-      - DATABASE_URL=sqlite:///./feedbreak.db
+      - DATABASE_URL=sqlite:///./db/feedbreak.db
       - PORT=8000
     env_file:
-      - ./.env
+      - ./backend/.env
     restart: unless-stopped
     networks:
       - feedbreak-network
@@ -26,10 +22,9 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
       timeout: 10s
-      retries: 3
-      start_period: 40s
+      retries: 5
+      start_period: 60s
 
-  # Frontend Dashboard
   dashboard:
     build:
       context: ./dashboard
@@ -42,8 +37,7 @@ services:
       - NEXT_PUBLIC_API_URL=http://backend:8000
       - PORT=3000
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     restart: unless-stopped
     networks:
       - feedbreak-network
@@ -59,5 +53,6 @@ networks:
     driver: bridge
 
 volumes:
+  db_data:
   feedbreak-data:
 

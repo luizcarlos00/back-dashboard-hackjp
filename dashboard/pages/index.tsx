@@ -28,44 +28,54 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    // Load students data
-    fetch('/students.json')
-      .then(res => res.json())
+    // Load students data from backend API
+    // Use proxy configured in next.config.js or direct localhost for development
+    const API_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost'
+      ? ''  // Development - browser to localhost
+      : '';  // Production - use proxy from next.config.js
+    
+    fetch(`${API_URL}/api/v1/dashboard-frontend/students`)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then(data => {
+        console.log('✅ Students loaded from backend:', data.length);
         setStudents(data);
         setLoading(false);
       })
       .catch(err => {
-        console.error('Error loading students:', err);
-        setLoading(false);
+        console.error('❌ Error loading students from backend:', err);
+        console.log('⚠️ Falling back to mock data (40 students)...');
+        // Fallback to mock data if backend is not available
+        import('../utils/mockData').then(({ generateStudents }) => {
+          setStudents(generateStudents(40));
+          setLoading(false);
+        });
       });
   }, []);
 
-  // Filter and sort students
   const filteredStudents = useMemo(() => {
     let filtered = students.filter(student => {
-      // Search filter
       if (filters.search && !student.nome.toLowerCase().includes(filters.search.toLowerCase())) {
         return false;
       }
 
-      // Age range filter
       if (student.idade < filters.ageRange[0] || student.idade > filters.ageRange[1]) {
         return false;
       }
 
-      // Education filter
       if (filters.education !== 'Todos' && student.escolaridade !== filters.education) {
         return false;
       }
 
-      // Content type filter (student must have at least one content of this type)
       if (filters.contentType !== 'todos') {
         const hasContentType = student.conteudos.some(c => c.tipo === filters.contentType);
         if (!hasContentType) return false;
       }
 
-      // Difficulty filter (student must have at least one content with this difficulty)
       if (filters.difficulty !== 'Todos') {
         const hasDifficulty = student.conteudos.some(c => c.dificuldade === filters.difficulty);
         if (!hasDifficulty) return false;
@@ -74,7 +84,6 @@ export default function Home() {
       return true;
     });
 
-    // Sort
     filtered.sort((a, b) => {
       let aValue: any;
       let bValue: any;

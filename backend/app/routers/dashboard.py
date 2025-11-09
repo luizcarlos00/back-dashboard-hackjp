@@ -1,124 +1,208 @@
-from fastapi import APIRouter, HTTPException, Query, Depends
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from sqlalchemy import func
+from sqlalchemy import func, desc
+from typing import List, Optional
 from app.database import get_db
-from app.db_models import User, Video, Answer, UserProgress, Question
-from app.models import DashboardStats
-from typing import Optional
-import logging
+from app.models import DashboardStats, UserStats
+from app.db_models import User, Content, Video, Activity, UserVideoProgress, UserActivityResponse
+from datetime import datetime
 
-logger = logging.getLogger(__name__)
 router = APIRouter()
 
-@router.get("/stats", response_model=DashboardStats)
-async def get_stats(db: Session = Depends(get_db)):
-    """Get aggregate statistics for dashboard."""
-    try:
-        # Total users
-        total_users = db.query(func.count(User.id)).scalar() or 0
-        
-        # Total videos watched
-        total_videos_watched = db.query(func.count(UserProgress.id)).scalar() or 0
-        
-        # Total answers
-        total_answers = db.query(func.count(Answer.id)).scalar() or 0
-        
-        # Count by response type
-        answers_audio_count = db.query(func.count(Answer.id)).filter(Answer.response_type == 'audio').scalar() or 0
-        answers_text_count = db.query(func.count(Answer.id)).filter(Answer.response_type == 'text').scalar() or 0
-        
-        # Calculate average quality score
-        avg_quality_score_result = db.query(func.avg(Answer.quality_score)).filter(Answer.quality_score.isnot(None)).scalar()
-        avg_quality_score = float(avg_quality_score_result) if avg_quality_score_result else 0.0
-        
-        # Calculate pass rate
-        total_evaluated = db.query(func.count(Answer.id)).filter(Answer.passed.isnot(None)).scalar() or 0
-        passed_count = db.query(func.count(Answer.id)).filter(Answer.passed == True).scalar() or 0
-        pass_rate = passed_count / total_evaluated if total_evaluated else 0.0
-        
-        # Top categories by view count
-        categories = db.query(
-            Video.category,
-            func.sum(Video.view_count).label('total_views')
-        ).group_by(Video.category).order_by(func.sum(Video.view_count).desc()).limit(5).all()
-        
-        top_categories = [
-            {"category": cat, "count": int(views) if views else 0}
-            for cat, views in categories
-        ]
-        
-        return DashboardStats(
-            total_users=total_users,
-            total_videos_watched=total_videos_watched,
-            total_answers=total_answers,
-            answers_audio_count=answers_audio_count,
-            answers_text_count=answers_text_count,
-            avg_quality_score=round(avg_quality_score, 2),
-            pass_rate=round(pass_rate, 2),
-            top_categories=top_categories
-        )
-    except Exception as e:
-        logger.error(f"Error fetching dashboard stats: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Error fetching stats: {str(e)}")
 
-@router.get("/e2e")
-async def get_e2e_responses(
-    response_type: Optional[str] = Query(None, description="Filter by 'audio' or 'text'"),
-    passed: Optional[bool] = Query(None, description="Filter by pass/fail status"),
-    limit: int = Query(50, ge=1, le=200),
+@router.get("/stats", response_model=DashboardStats)
+def get_dashboard_stats(db: Session = Depends(get_db)):
+    """
+    Retorna estatísticas gerais do dashboard
+    """
+    # Total de usuários
+    total_users = db.query(func.count(User.id)).scalar() or 0
+    
+    # Total de vídeos
+    total_videos = db.query(func.count(Video.id)).scalar() or 0
+    
+    # Total de atividades
+    total_activities = db.query(func.count(Activity.id)).scalar() or 0
+    
+    # Total de visualizações de vídeos
+    total_video_watches = db.query(func.count(UserVideoProgress.id)).filter(
+        UserVideoProgress.watched == True
+    ).scalar() or 0
+    
+    # Total de respostas de atividades
+    total_activity_responses = db.query(func.count(UserActivityResponse.id)).filter(
+        UserActivityResponse.responded == True
+    ).scalar() or 0
+    
+    # Média de grau de aprendizagem
+    avg_learning = db.query(func.avg(UserActivityResponse.grau_aprendizagem)).filter(
+        UserActivityResponse.grau_aprendizagem.isnot(None)
+    ).scalar() or 0.0
+    
+    # Conteúdo mais popular (mais vídeos assistidos)
+    most_popular = db.query(
+        Content.title,
+        func.count(UserVideoProgress.id).label('watch_count')
+    ).join(Video).join(UserVideoProgress).filter(
+        UserVideoProgress.watched == True
+    ).group_by(Content.id).order_by(desc('watch_count')).first()
+    
+    most_popular_content = most_popular[0] if most_popular else None
+    
+    return DashboardStats(
+        total_users=total_users,
+        total_videos=total_videos,
+        total_activities=total_activities,
+        total_video_watches=total_video_watches,
+        total_activity_responses=total_activity_responses,
+        avg_grau_aprendizagem=round(float(avg_learning), 2) if avg_learning else None,
+        most_popular_content=most_popular_content
+    )
+
+
+@router.get("/users", response_model=List[UserStats])
+def get_users_stats(
+    skip: int = 0,
+    limit: int = 50,
+    order_by: str = "videos_watched",  # videos_watched, activities_completed, avg_grade
     db: Session = Depends(get_db)
 ):
-    """Get list of E2E answers for review."""
-    try:
-        # Build query with joins
-        query = db.query(
-            Answer,
-            User.nome.label('user_nome'),
-            Video.title.label('video_title'),
-            Question.question_text.label('question_text')
-        ).join(User, Answer.user_id == User.id) \
-         .join(Video, Answer.video_id == Video.id) \
-         .join(Question, Answer.question_id == Question.id)
+    """
+    Retorna estatísticas de todos os usuários
+    
+    Args:
+        skip: Paginação
+        limit: Limite de resultados
+        order_by: Ordenar por (videos_watched, activities_completed, avg_grade)
+    """
+    users = db.query(User).offset(skip).limit(limit).all()
+    
+    users_stats = []
+    for user in users:
+        # Vídeos assistidos
+        videos_watched = db.query(func.count(UserVideoProgress.id)).filter(
+            UserVideoProgress.user_id == user.id,
+            UserVideoProgress.watched == True
+        ).scalar() or 0
         
-        # Apply filters
-        if response_type:
-            if response_type not in ['audio', 'text']:
-                raise HTTPException(status_code=400, detail="response_type must be 'audio' or 'text'")
-            query = query.filter(Answer.response_type == response_type)
+        # Atividades completadas
+        activities_completed = db.query(func.count(UserActivityResponse.id)).filter(
+            UserActivityResponse.user_id == user.id,
+            UserActivityResponse.responded == True
+        ).scalar() or 0
         
-        if passed is not None:
-            query = query.filter(Answer.passed == passed)
+        # Média de grau de aprendizagem
+        avg_learning = db.query(func.avg(UserActivityResponse.grau_aprendizagem)).filter(
+            UserActivityResponse.user_id == user.id,
+            UserActivityResponse.grau_aprendizagem.isnot(None)
+        ).scalar()
         
-        # Execute query
-        results = query.order_by(Answer.created_at.desc()).limit(limit).all()
-        
-        # Format response
-        responses = []
-        for answer, user_nome, video_title, question_text in results:
-            responses.append({
-                "id": str(answer.id),
-                "user_id": str(answer.user_id),
-                "user_nome": user_nome,
-                "video_title": video_title,
-                "question_text": question_text,
-                "response_type": answer.response_type,
-                "text_response": answer.text_response,
-                "audio_url": answer.audio_url,
-                "transcription": answer.transcription,
-                "ai_evaluation": answer.ai_evaluation,
-                "quality_score": answer.quality_score,
-                "passed": answer.passed,
-                "concepts_identified": answer.concepts_identified or [],
-                "created_at": answer.created_at
-            })
-        
-        return {
-            "responses": responses,
-            "total": len(responses),
-            "limit": limit
-        }
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error fetching E2E responses: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Error fetching E2E responses: {str(e)}")
+        users_stats.append(UserStats(
+            user_id=user.id,
+            user_nome=user.nome,
+            videos_watched=videos_watched,
+            activities_completed=activities_completed,
+            avg_grau_aprendizagem=round(float(avg_learning), 2) if avg_learning else None,
+            last_active=user.last_active_at
+        ))
+    
+    # Ordenar
+    if order_by == "videos_watched":
+        users_stats.sort(key=lambda x: x.videos_watched, reverse=True)
+    elif order_by == "activities_completed":
+        users_stats.sort(key=lambda x: x.activities_completed, reverse=True)
+    elif order_by == "avg_grade":
+        users_stats.sort(key=lambda x: x.avg_grau_aprendizagem or 0, reverse=True)
+    
+    return users_stats
+
+
+@router.get("/content/{content_id}/stats")
+def get_content_stats(content_id: str, db: Session = Depends(get_db)):
+    """
+    Retorna estatísticas de um conteúdo específico
+    """
+    content = db.query(Content).filter(Content.id == content_id).first()
+    if not content:
+        return {"error": "Conteúdo não encontrado"}
+    
+    # Total de vídeos
+    total_videos = db.query(func.count(Video.id)).filter(
+        Video.content_id == content_id
+    ).scalar() or 0
+    
+    # Total de atividades
+    total_activities = db.query(func.count(Activity.id)).filter(
+        Activity.content_id == content_id
+    ).scalar() or 0
+    
+    # Total de visualizações
+    total_watches = db.query(func.count(UserVideoProgress.id)).join(Video).filter(
+        Video.content_id == content_id,
+        UserVideoProgress.watched == True
+    ).scalar() or 0
+    
+    # Total de respostas
+    total_responses = db.query(func.count(UserActivityResponse.id)).join(Activity).filter(
+        Activity.content_id == content_id,
+        UserActivityResponse.responded == True
+    ).scalar() or 0
+    
+    # Média de grau de aprendizagem
+    avg_learning = db.query(func.avg(UserActivityResponse.grau_aprendizagem)).join(Activity).filter(
+        Activity.content_id == content_id,
+        UserActivityResponse.grau_aprendizagem.isnot(None)
+    ).scalar()
+    
+    # Usuários únicos que assistiram
+    unique_users = db.query(func.count(func.distinct(UserVideoProgress.user_id))).join(Video).filter(
+        Video.content_id == content_id,
+        UserVideoProgress.watched == True
+    ).scalar() or 0
+    
+    return {
+        "content_id": content_id,
+        "content_title": content.title,
+        "publico_alvo": content.publico_alvo,
+        "total_videos": total_videos,
+        "total_activities": total_activities,
+        "total_watches": total_watches,
+        "total_responses": total_responses,
+        "avg_grau_aprendizagem": round(float(avg_learning), 2) if avg_learning else None,
+        "unique_users": unique_users,
+        "completion_rate": round((total_responses / total_activities * 100), 2) if total_activities > 0 else 0
+    }
+
+
+@router.get("/leaderboard")
+def get_leaderboard(limit: int = 10, db: Session = Depends(get_db)):
+    """
+    Retorna um ranking dos usuários com melhor desempenho
+    """
+    # Buscar usuários com pelo menos 1 resposta
+    users_with_responses = db.query(
+        User.id,
+        User.nome,
+        func.count(UserActivityResponse.id).label('total_responses'),
+        func.avg(UserActivityResponse.grau_aprendizagem).label('avg_grade')
+    ).join(UserActivityResponse).filter(
+        UserActivityResponse.responded == True,
+        UserActivityResponse.grau_aprendizagem.isnot(None)
+    ).group_by(User.id).having(
+        func.count(UserActivityResponse.id) > 0
+    ).all()
+    
+    # Criar ranking
+    leaderboard = []
+    for user in users_with_responses:
+        leaderboard.append({
+            "user_id": user.id,
+            "user_nome": user.nome,
+            "total_responses": user.total_responses,
+            "avg_grau_aprendizagem": round(float(user.avg_grade), 2)
+        })
+    
+    # Ordenar por média de aprendizagem
+    leaderboard.sort(key=lambda x: x['avg_grau_aprendizagem'], reverse=True)
+    
+    return leaderboard[:limit]
