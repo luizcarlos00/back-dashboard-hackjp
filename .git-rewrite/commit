@@ -1,0 +1,6 @@
+tree 1e336a7d6c571a16e1c26565c5a16532f71a6aa8
+parent cc21304ab19563c419f86d980d016c26976267da
+author JucaGF <joaquim_germano9@hotmail.com> 1762659525 -0300
+committer JucaGF <joaquim_germano9@hotmail.com> 1762659525 -0300
+
+Remove .env file from repository (security fix)
